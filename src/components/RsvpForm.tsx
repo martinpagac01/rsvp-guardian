@@ -1,27 +1,99 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { X } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 interface RsvpFormProps {
   email: string;
   onClose: () => void;
 }
 
+interface GuestData {
+  id: string;
+  full_name: string;
+  additional_guests_allowed: number;
+  accommodation_status: 'not_needed' | 'needed' | 'provided';
+}
+
 const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
+  const [guestData, setGuestData] = useState<GuestData | null>(null);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     dietary: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const fetchGuestData = async () => {
+      const { data, error } = await supabase
+        .from('approved_guests')
+        .select()
+        .ilike('email', email)
+        .maybeSingle();
+
+      if (error) {
+        console.error('Error fetching guest data:', error);
+        toast({
+          title: "Chyba",
+          description: "Nastala chyba pri načítaní údajov. Skúste to prosím znova.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (data) {
+        setGuestData(data as GuestData);
+        setFormData(prev => ({ ...prev, fullName: data.full_name }));
+      }
+    };
+
+    fetchGuestData();
+  }, [email]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    if (!guestData) return;
+
+    setIsLoading(true);
+    try {
+      // Insert RSVP response
+      const { data: rsvpData, error: rsvpError } = await supabase
+        .from('rsvp_responses')
+        .insert({
+          approved_guest_id: guestData.id,
+          phone: formData.phone,
+          dietary_requirements: formData.dietary || null,
+        })
+        .select()
+        .single();
+
+      if (rsvpError) throw rsvpError;
+
+      toast({
+        title: "RSVP odoslané",
+        description: "Vaša odpoveď bola úspešne zaznamenaná.",
+      });
+
+      onClose();
+    } catch (error) {
+      console.error('Error submitting RSVP:', error);
+      toast({
+        title: "Chyba",
+        description: "Nastala chyba pri odosielaní RSVP. Skúste to prosím znova.",
+        variant: "destructive",
+      });
+    }
+    setIsLoading(false);
   };
+
+  if (!guestData) {
+    return null;
+  }
 
   return (
     <div className="h-full flex flex-col">
@@ -44,7 +116,7 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
             id="fullName"
             value={formData.fullName}
             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-            required
+            disabled
           />
         </div>
         
@@ -70,8 +142,8 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
         </div>
 
         <div className="pt-6 border-t">
-          <Button type="submit" className="w-full">
-            Odoslať RSVP
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Odosielam..." : "Odoslať RSVP"}
           </Button>
         </div>
       </form>

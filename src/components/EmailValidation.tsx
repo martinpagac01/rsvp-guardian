@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EmailValidationProps {
   onValidEmail: (email: string) => void;
@@ -11,22 +12,33 @@ const EmailValidation = ({ onValidEmail }: EmailValidationProps) => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Temporary approved emails list (replace with API call later)
-  const approvedEmails = ["test@example.com", "approved@test.com"];
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    try {
+      const { data, error } = await supabase
+        .from('approved_guests')
+        .select()
+        .ilike('email', email.toLowerCase())
+        .maybeSingle();
 
-    if (approvedEmails.includes(email.toLowerCase())) {
-      onValidEmail(email);
-    } else {
+      if (error) throw error;
+
+      if (data) {
+        onValidEmail(email);
+      } else {
+        toast({
+          title: "Neplatný email",
+          description: "Ľutujeme, tento email sa nenachádza v zozname pozvaných hostí.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error checking email:', error);
       toast({
-        title: "Neplatný email",
-        description: "Ľutujeme, tento email sa nenachádza v zozname pozvaných hostí.",
+        title: "Chyba",
+        description: "Nastala chyba pri overovaní emailu. Skúste to prosím znova.",
         variant: "destructive",
       });
     }

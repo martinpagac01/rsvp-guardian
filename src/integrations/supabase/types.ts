@@ -9,7 +9,112 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      additional_guests: {
+        Row: {
+          accommodation_status: Database["public"]["Enums"]["accommodation_status"]
+          created_at: string
+          dietary_requirements: string | null
+          full_name: string
+          id: string
+          phone: string
+          rsvp_response_id: string
+          updated_at: string
+        }
+        Insert: {
+          accommodation_status?: Database["public"]["Enums"]["accommodation_status"]
+          created_at?: string
+          dietary_requirements?: string | null
+          full_name: string
+          id?: string
+          phone: string
+          rsvp_response_id: string
+          updated_at?: string
+        }
+        Update: {
+          accommodation_status?: Database["public"]["Enums"]["accommodation_status"]
+          created_at?: string
+          dietary_requirements?: string | null
+          full_name?: string
+          id?: string
+          phone?: string
+          rsvp_response_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "additional_guests_rsvp_response_id_fkey"
+            columns: ["rsvp_response_id"]
+            isOneToOne: false
+            referencedRelation: "rsvp_responses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approved_guests: {
+        Row: {
+          accommodation_status: Database["public"]["Enums"]["accommodation_status"]
+          additional_guests_allowed: number
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          accommodation_status?: Database["public"]["Enums"]["accommodation_status"]
+          additional_guests_allowed?: number
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          accommodation_status?: Database["public"]["Enums"]["accommodation_status"]
+          additional_guests_allowed?: number
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      rsvp_responses: {
+        Row: {
+          approved_guest_id: string
+          created_at: string
+          dietary_requirements: string | null
+          id: string
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          approved_guest_id: string
+          created_at?: string
+          dietary_requirements?: string | null
+          id?: string
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          approved_guest_id?: string
+          created_at?: string
+          dietary_requirements?: string | null
+          id?: string
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rsvp_responses_approved_guest_id_fkey"
+            columns: ["approved_guest_id"]
+            isOneToOne: true
+            referencedRelation: "approved_guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +123,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      accommodation_status: "not_needed" | "needed" | "provided"
     }
     CompositeTypes: {
       [_ in never]: never
