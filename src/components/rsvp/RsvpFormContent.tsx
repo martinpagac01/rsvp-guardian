@@ -5,13 +5,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { X, Plus, Minus } from "lucide-react";
+import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
 
 interface RsvpFormContentProps {
   guestData: {
     id: string;
     full_name: string;
     additional_guests_allowed: number;
-    accommodation_status: 'not_needed' | 'needed' | 'provided';
+    accommodation_status: AccommodationStatus;
   };
   formData: {
     fullName: string;
@@ -40,12 +41,23 @@ const RsvpFormContent = ({
   onUpdateAdditionalGuest,
   onSubmit
 }: RsvpFormContentProps) => {
+  const getAccommodationText = (status: AccommodationStatus) => {
+    switch (status) {
+      case 'provided':
+        return 'Zabezpečené';
+      case 'not_provided':
+        return 'Nepotrebné';
+      default:
+        return 'Neznámy stav';
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
       <Alert>
         <AlertDescription>
           <div className="space-y-2">
-            <p><strong>Ubytovanie:</strong> {guestData.accommodation_status === 'provided' ? 'Zabezpečené' : guestData.accommodation_status === 'needed' ? 'Potrebné' : 'Nepotrebné'}</p>
+            <p><strong>Ubytovanie:</strong> {getAccommodationText(guestData.accommodation_status)}</p>
             <p><strong>Počet možných hostí:</strong> {guestData.additional_guests_allowed}</p>
           </div>
         </AlertDescription>
