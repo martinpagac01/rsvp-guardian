@@ -1,16 +1,5 @@
 import { AccommodationStatus } from './enums';
 
-export interface AdditionalGuest {
-  id: string;
-  rsvp_response_id: string;
-  full_name: string;
-  phone: string;
-  dietary_requirements: string | null;
-  accommodation_status: AccommodationStatus;
-  created_at: string;
-  updated_at: string;
-}
-
 export interface ApprovedGuest {
   id: string;
   email: string;
@@ -26,6 +15,17 @@ export interface RsvpResponse {
   approved_guest_id: string;
   phone: string;
   dietary_requirements: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AdditionalGuest {
+  id: string;
+  rsvp_response_id: string;
+  full_name: string;
+  phone: string;
+  dietary_requirements: string | null;
+  accommodation_status: AccommodationStatus;
   created_at: string;
   updated_at: string;
 }

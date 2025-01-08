@@ -1,1 +1,1 @@
-export type AccommodationStatus = 'not_needed' | 'needed' | 'provided';
+export type AccommodationStatus = 'not_provided' | 'provided';
