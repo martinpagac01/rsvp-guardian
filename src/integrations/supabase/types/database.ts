@@ -1,4 +1,5 @@
 import { AdditionalGuest, ApprovedGuest, RsvpResponse } from './tables'
+import { AccommodationStatus } from './enums'
 
 export type Json =
   | string
