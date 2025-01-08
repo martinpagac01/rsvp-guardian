@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { X, Plus, Minus } from "lucide-react";
+import { X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
+import AttendanceQuestion from "./rsvp/AttendanceQuestion";
+import ThankYouMessage from "./rsvp/ThankYouMessage";
+import RsvpFormContent from "./rsvp/RsvpFormContent";
 
 interface RsvpFormProps {
   email: string;
@@ -35,10 +34,11 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
   const [additionalGuests, setAdditionalGuests] = useState<AdditionalGuest[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasExistingResponse, setHasExistingResponse] = useState(false);
+  const [attendanceResponse, setAttendanceResponse] = useState<boolean | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     const fetchGuestData = async () => {
-      // Fetch guest data
       const { data: guestData, error: guestError } = await supabase
         .from('approved_guests')
         .select()
@@ -59,7 +59,6 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
         setGuestData(guestData as GuestData);
         setFormData(prev => ({ ...prev, fullName: guestData.full_name }));
 
-        // Check for existing RSVP response
         const { data: rsvpData } = await supabase
           .from('rsvp_responses')
           .select()
@@ -79,6 +78,33 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
 
     fetchGuestData();
   }, [email]);
+
+  const handleAttendanceResponse = async (willAttend: boolean) => {
+    setAttendanceResponse(willAttend);
+    if (!willAttend) {
+      try {
+        await supabase
+          .from('rsvp_responses')
+          .insert({
+            approved_guest_id: guestData?.id,
+            phone: 'declined',
+            dietary_requirements: null,
+          });
+        setIsSubmitted(true);
+      } catch (error) {
+        console.error('Error submitting decline:', error);
+        toast({
+          title: "Chyba",
+          description: "Nastala chyba pri odosielaní odpovede. Skúste to prosím znova.",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  const handleFormDataChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const addGuest = () => {
     if (!guestData || additionalGuests.length >= guestData.additional_guests_allowed) return;
@@ -101,7 +127,6 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
 
     setIsLoading(true);
     try {
-      // Insert RSVP response
       const { data: rsvpData, error: rsvpError } = await supabase
         .from('rsvp_responses')
         .insert({
@@ -114,7 +139,6 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
 
       if (rsvpError) throw rsvpError;
 
-      // Insert additional guests if any
       if (additionalGuests.length > 0) {
         const { error: additionalGuestsError } = await supabase
           .from('additional_guests')
@@ -131,12 +155,11 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
         if (additionalGuestsError) throw additionalGuestsError;
       }
 
+      setIsSubmitted(true);
       toast({
         title: "RSVP odoslané",
         description: "Vaša odpoveď bola úspešne zaznamenaná.",
       });
-
-      onClose();
     } catch (error) {
       console.error('Error submitting RSVP:', error);
       toast({
@@ -160,128 +183,37 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
           <X className="h-6 w-6" />
         </Button>
       </div>
-      
-      <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
-        {/* Guest Information Alert */}
-        <Alert>
-          <AlertDescription>
-            <div className="space-y-2">
-              <p><strong>Ubytovanie:</strong> {guestData.accommodation_status === 'provided' ? 'Zabezpečené' : guestData.accommodation_status === 'needed' ? 'Potrebné' : 'Nepotrebné'}</p>
-              <p><strong>Počet možných hostí:</strong> {guestData.additional_guests_allowed}</p>
-            </div>
-          </AlertDescription>
-        </Alert>
 
-        {hasExistingResponse && (
-          <Alert variant="destructive">
-            <AlertDescription>
-              Vaša RSVP odpoveď už bola zaznamenaná. Pre zmenu odpovede nás prosím kontaktujte.
-            </AlertDescription>
-          </Alert>
-        )}
-
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" value={email} disabled />
-        </div>
-        
-        <div className="space-y-2">
-          <Label htmlFor="fullName">Celé meno</Label>
-          <Input
-            id="fullName"
-            value={formData.fullName}
-            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-            disabled
-          />
-        </div>
-        
-        <div className="space-y-2">
-          <Label htmlFor="phone">Telefónne číslo</Label>
-          <Input
-            id="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            required
-            disabled={hasExistingResponse}
-          />
-        </div>
-        
-        <div className="space-y-2">
-          <Label htmlFor="dietary">Špeciálne stravovanie</Label>
-          <Textarea
-            id="dietary"
-            value={formData.dietary}
-            onChange={(e) => setFormData({ ...formData, dietary: e.target.value })}
-            placeholder="Vegetariánske, vegánske, alergie..."
-            disabled={hasExistingResponse}
-          />
-        </div>
-
-        {/* Additional Guests Section */}
-        {guestData.additional_guests_allowed > 0 && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label>Dodatoční hostia ({additionalGuests.length}/{guestData.additional_guests_allowed})</Label>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={addGuest}
-                disabled={additionalGuests.length >= guestData.additional_guests_allowed || hasExistingResponse}
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Pridať hosťa
-              </Button>
-            </div>
-
-            {additionalGuests.map((guest, index) => (
-              <div key={index} className="space-y-4 p-4 border rounded-lg relative">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-2 right-2"
-                  onClick={() => removeGuest(index)}
-                  disabled={hasExistingResponse}
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-
-                <div className="space-y-2">
-                  <Label>Meno hosťa {index + 1}</Label>
-                  <Input
-                    value={guest.full_name}
-                    onChange={(e) => updateAdditionalGuest(index, 'full_name', e.target.value)}
-                    required
-                    disabled={hasExistingResponse}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Špeciálne stravovanie hosťa {index + 1}</Label>
-                  <Textarea
-                    value={guest.dietary}
-                    onChange={(e) => updateAdditionalGuest(index, 'dietary', e.target.value)}
-                    placeholder="Vegetariánske, vegánske, alergie..."
-                    disabled={hasExistingResponse}
-                  />
-                </div>
-              </div>
-            ))}
+      <div className="flex-1 overflow-y-auto">
+        {isSubmitted ? (
+          <div className="p-6">
+            <ThankYouMessage 
+              isAttending={attendanceResponse!} 
+              onClose={onClose} 
+            />
           </div>
+        ) : !attendanceResponse && !hasExistingResponse ? (
+          <div className="p-6">
+            <AttendanceQuestion 
+              onResponse={handleAttendanceResponse}
+              guestName={guestData.full_name}
+            />
+          </div>
+        ) : attendanceResponse && (
+          <RsvpFormContent
+            guestData={guestData}
+            formData={formData}
+            additionalGuests={additionalGuests}
+            isLoading={isLoading}
+            hasExistingResponse={hasExistingResponse}
+            onFormDataChange={handleFormDataChange}
+            onAddGuest={addGuest}
+            onRemoveGuest={removeGuest}
+            onUpdateAdditionalGuest={updateAdditionalGuest}
+            onSubmit={handleSubmit}
+          />
         )}
-
-        <div className="pt-6 border-t">
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isLoading || hasExistingResponse}
-          >
-            {isLoading ? "Odosielam..." : hasExistingResponse ? "Už odoslané" : "Odoslať RSVP"}
-          </Button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };
