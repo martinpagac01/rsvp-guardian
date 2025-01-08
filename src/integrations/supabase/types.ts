@@ -123,7 +123,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      accommodation_status: "not_needed" | "needed" | "provided"
+      accommodation_status: "not_provided" | "provided"
     }
     CompositeTypes: {
       [_ in never]: never

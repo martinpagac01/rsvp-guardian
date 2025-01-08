@@ -1,0 +1,1 @@
+export type AccommodationStatus = 'not_provided' | 'provided'
