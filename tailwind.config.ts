@@ -52,6 +52,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        wedding: {
+          background: "#f7f2e7",
+        },
+      },
+      fontFamily: {
+        serif: ["Playfair Display", "serif"],
+        sans: ["SF Pro Display", "system-ui", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
