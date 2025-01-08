@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
-import type { ApprovedGuest } from "@/integrations/supabase/types";
+import { ApprovedGuest } from "@/integrations/supabase/types";
 
 interface AdditionalGuest {
   full_name: string;
