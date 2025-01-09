@@ -24,7 +24,7 @@ const AttendanceQuestion = ({ onResponse, guestName }: AttendanceQuestionProps) 
           <Button 
             onClick={() => onResponse(true)}
             size="lg"
-            className="bg-rose-500 hover:bg-rose-600 text-white px-8 py-6 text-lg"
+            className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-6 text-lg transition-all duration-300 transform hover:scale-105"
           >
             <Check className="h-5 w-5 mr-2" />
             Áno, s radosťou
@@ -33,7 +33,7 @@ const AttendanceQuestion = ({ onResponse, guestName }: AttendanceQuestionProps) 
             onClick={() => onResponse(false)}
             variant="outline"
             size="lg"
-            className="bg-white hover:bg-gray-50 px-8 py-6 text-lg"
+            className="bg-white hover:bg-gray-50 px-8 py-6 text-lg border-2 transition-all duration-300"
           >
             <X className="h-5 w-5 mr-2" />
             Nie, nemôžem sa zúčastniť
