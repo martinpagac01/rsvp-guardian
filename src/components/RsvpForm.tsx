@@ -32,10 +32,15 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
   }
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between p-6 border-b">
-        <h2 className="text-2xl font-semibold">RSVP Formulár</h2>
-        <Button variant="ghost" size="icon" onClick={onClose}>
+    <div className="h-full flex flex-col bg-wedding-background">
+      <div className="flex items-center justify-between p-6 border-b bg-white/50 backdrop-blur-sm">
+        <h2 className="text-2xl font-serif font-medium text-gray-800">RSVP Formulár</h2>
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={onClose}
+          className="hover:bg-gray-100"
+        >
           <X className="h-6 w-6" />
         </Button>
       </div>

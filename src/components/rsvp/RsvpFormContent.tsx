@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { X, Plus, Minus } from "lucide-react";
+import { Plus } from "lucide-react";
 import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
+import GuestInformation from "./GuestInformation";
+import AdditionalGuest from "./AdditionalGuest";
 
 interface RsvpFormContentProps {
   guestData: {
@@ -41,126 +39,63 @@ const RsvpFormContent = ({
   onUpdateAdditionalGuest,
   onSubmit
 }: RsvpFormContentProps) => {
-  const getAccommodationText = (status: AccommodationStatus) => {
-    switch (status) {
-      case 'provided':
-        return 'Zabezpečené';
-      case 'not_provided':
-        return 'Nepotrebné';
-      default:
-        return 'Neznámy stav';
-    }
-  };
-
   return (
-    <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
-      <Alert>
-        <AlertDescription>
-          <div className="space-y-2">
-            <p><strong>Ubytovanie:</strong> {getAccommodationText(guestData.accommodation_status)}</p>
-            <p><strong>Počet možných hostí:</strong> {guestData.additional_guests_allowed}</p>
-          </div>
-        </AlertDescription>
-      </Alert>
-
+    <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-6 space-y-8">
       {hasExistingResponse && (
-        <Alert variant="destructive">
-          <AlertDescription>
+        <Alert variant="destructive" className="bg-red-50 border-red-200">
+          <AlertDescription className="text-red-800">
             Vaša RSVP odpoveď už bola zaznamenaná. Pre zmenu odpovede nás prosím kontaktujte.
           </AlertDescription>
         </Alert>
       )}
 
-      <div className="space-y-2">
-        <Label htmlFor="fullName">Celé meno</Label>
-        <Input
-          id="fullName"
-          value={formData.fullName}
-          onChange={(e) => onFormDataChange('fullName', e.target.value)}
-          disabled
-        />
-      </div>
-      
-      <div className="space-y-2">
-        <Label htmlFor="phone">Telefónne číslo</Label>
-        <Input
-          id="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={(e) => onFormDataChange('phone', e.target.value)}
-          required
-          disabled={hasExistingResponse}
-        />
-      </div>
-      
-      <div className="space-y-2">
-        <Label htmlFor="dietary">Špeciálne stravovanie</Label>
-        <Textarea
-          id="dietary"
-          value={formData.dietary}
-          onChange={(e) => onFormDataChange('dietary', e.target.value)}
-          placeholder="Vegetariánske, vegánske, alergie..."
-          disabled={hasExistingResponse}
-        />
-      </div>
+      <GuestInformation
+        fullName={formData.fullName}
+        phone={formData.phone}
+        dietary={formData.dietary}
+        accommodationStatus={guestData.accommodation_status}
+        isDisabled={hasExistingResponse}
+        onFormDataChange={onFormDataChange}
+      />
 
       {guestData.additional_guests_allowed > 0 && (
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <Label>Dodatoční hostia ({additionalGuests.length}/{guestData.additional_guests_allowed})</Label>
+            <h3 className="text-lg font-medium text-gray-700">
+              Dodatoční hostia ({additionalGuests.length}/{guestData.additional_guests_allowed})
+            </h3>
             <Button
               type="button"
               variant="outline"
-              size="sm"
               onClick={onAddGuest}
               disabled={additionalGuests.length >= guestData.additional_guests_allowed || hasExistingResponse}
+              className="bg-white hover:bg-gray-50"
             >
               <Plus className="h-4 w-4 mr-2" />
               Pridať hosťa
             </Button>
           </div>
 
-          {additionalGuests.map((guest, index) => (
-            <div key={index} className="space-y-4 p-4 border rounded-lg relative">
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2"
-                onClick={() => onRemoveGuest(index)}
-                disabled={hasExistingResponse}
-              >
-                <Minus className="h-4 w-4" />
-              </Button>
-
-              <div className="space-y-2">
-                <Label>Meno hosťa {index + 1}</Label>
-                <Input
-                  value={guest.full_name}
-                  onChange={(e) => onUpdateAdditionalGuest(index, 'full_name', e.target.value)}
-                  required
-                  disabled={hasExistingResponse}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label>Špeciálne stravovanie hosťa {index + 1}</Label>
-                <Textarea
-                  value={guest.dietary}
-                  onChange={(e) => onUpdateAdditionalGuest(index, 'dietary', e.target.value)}
-                  placeholder="Vegetariánske, vegánske, alergie..."
-                  disabled={hasExistingResponse}
-                />
-              </div>
-            </div>
-          ))}
+          <div className="space-y-6">
+            {additionalGuests.map((guest, index) => (
+              <AdditionalGuest
+                key={index}
+                index={index}
+                fullName={guest.full_name}
+                dietary={guest.dietary}
+                isDisabled={hasExistingResponse}
+                onRemove={() => onRemoveGuest(index)}
+                onUpdate={(field, value) => onUpdateAdditionalGuest(index, field, value)}
+              />
+            ))}
+          </div>
         </div>
       )}
 
-      <div className="pt-6 border-t">
+      <div className="sticky bottom-0 pt-6 pb-2 bg-wedding-background/80 backdrop-blur-sm">
         <Button
           type="submit"
-          className="w-full"
+          className="w-full bg-rose-500 hover:bg-rose-600 text-white font-medium py-6"
           disabled={isLoading || hasExistingResponse}
         >
           {isLoading ? "Odosielam..." : hasExistingResponse ? "Už odoslané" : "Odoslať RSVP"}
