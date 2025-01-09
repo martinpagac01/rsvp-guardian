@@ -1,69 +1,92 @@
-# Welcome to your Lovable project
+# Wedding RSVP Application
 
-## Project info
+A beautiful and responsive wedding RSVP application built with modern web technologies. This application allows wedding guests to confirm their attendance and provide necessary details for the event.
 
-**URL**: https://lovable.dev/projects/e4b7d2e1-57bb-41ab-94e1-fed003c5985e
+## Features
 
-## How can I edit this code?
+- 🎨 Modern and responsive design
+- 📱 Mobile-first approach
+- 📝 RSVP form with email validation
+- 👥 Support for additional guests
+- 🏨 Accommodation management
+- 🍽️ Dietary requirements handling
+- 📍 Event details and location information
+- 👗 Dress code information
+- ❓ FAQ section
+- 📞 Contact information
 
-There are several ways of editing your application.
+## Technology Stack
 
-**Use Lovable**
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Database**: Supabase
+- **Icons**: Lucide React
+- **Animations**: Custom Tailwind animations
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e4b7d2e1-57bb-41ab-94e1-fed003c5985e) and start prompting.
+## Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/
+│   ├── sections/           # Page sections components
+│   ├── rsvp/              # RSVP form components
+│   └── ui/                # Reusable UI components
+├── hooks/                 # Custom React hooks
+├── integrations/          # External integrations (Supabase)
+└── pages/                 # Page components
 ```
 
-**Edit a file directly in GitHub**
+## Getting Started
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-**Use GitHub Codespaces**
+## Development
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Available Scripts
 
-## What technologies are used for this project?
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-This project is built with .
+### Environment Variables
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Create a `.env` file in the root directory with the following variables:
 
-## How can I deploy this project?
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-Simply open [Lovable](https://lovable.dev/projects/e4b7d2e1-57bb-41ab-94e1-fed003c5985e) and click on Share -> Publish.
+## Deployment
 
-## I want to use a custom domain - is that possible?
+The application can be deployed using various platforms:
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+1. **Lovable Platform**: Click on Share -> Publish in the Lovable interface
+2. **Custom Domain**: Follow our [Custom Domain Guide](https://docs.lovable.dev/tips-tricks/custom-domain/)
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support, please contact us at support@lovable.dev or join our [Discord community](https://discord.gg/lovable).
