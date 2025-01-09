@@ -1,7 +1,7 @@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, CheckCircle2, XCircle } from "lucide-react";
+import { Heart, CheckCircle2 } from "lucide-react";
 
 interface ThankYouMessageProps {
   isAttending: boolean;

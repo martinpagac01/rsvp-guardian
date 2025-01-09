@@ -2,6 +2,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Home } from "lucide-react";
 import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
 
 interface GuestInformationProps {
@@ -21,20 +23,9 @@ const GuestInformation = ({
   isDisabled,
   onFormDataChange,
 }: GuestInformationProps) => {
-  const getAccommodationText = (status: AccommodationStatus) => {
-    switch (status) {
-      case 'provided':
-        return 'Zabezpečené';
-      case 'not_provided':
-        return 'Nepotrebné';
-      default:
-        return 'Neznámy stav';
-    }
-  };
-
   return (
     <Card className="bg-white/50 backdrop-blur-sm border-none shadow-lg">
-      <CardContent className="space-y-4 p-6">
+      <CardContent className="space-y-6 p-6">
         <div className="space-y-2">
           <Label htmlFor="fullName" className="text-gray-700 font-medium">
             Celé meno
@@ -78,12 +69,12 @@ const GuestInformation = ({
           />
         </div>
 
-        <div className="mt-4 p-4 bg-white/40 rounded-lg">
-          <p className="text-sm text-gray-600">
-            <span className="font-medium">Ubytovanie:</span>{' '}
-            {getAccommodationText(accommodationStatus)}
-          </p>
-        </div>
+        <Alert className="bg-emerald-50 border-emerald-200">
+          <Home className="h-4 w-4 text-emerald-500" />
+          <AlertDescription className="text-emerald-800 ml-2">
+            Ubytovanie máte zabezpečené od nás. Nemusíte sa o nič starať.
+          </AlertDescription>
+        </Alert>
       </CardContent>
     </Card>
   );

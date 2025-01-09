@@ -13,12 +13,14 @@ const HeroSection = () => {
       <div className="container relative z-10 text-center space-y-12 px-4">
         <div className="animate-fade-in space-y-8">
           <Heart className="mx-auto text-rose-500 h-16 w-16 animate-pulse" />
-          <h1 className="font-serif text-6xl md:text-8xl font-bold text-gray-800 tracking-tight">
-            Lucia & Matej
-          </h1>
-          <p className="font-serif text-2xl md:text-4xl text-gray-700 italic">
-            Pozývame Vás na našu svadbu
-          </p>
+          <div className="space-y-4">
+            <h1 className="font-serif text-6xl md:text-8xl font-bold text-gray-800 tracking-tight">
+              Lucia & Matej
+            </h1>
+            <p className="font-serif text-2xl md:text-4xl text-gray-700 italic">
+              Pozývame Vás na našu svadbu
+            </p>
+          </div>
           <div className="pt-8">
             <ChevronDown className="mx-auto h-8 w-8 text-gray-600 animate-bounce" />
           </div>

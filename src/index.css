@@ -51,4 +51,43 @@
     @apply animate-slide-in-right;
     transform: translateX(0);
   }
+
+  /* Premium Animations */
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+
+  /* Premium Form Styling */
+  input, textarea {
+    @apply transition-all duration-200;
+  }
+
+  input:focus, textarea:focus {
+    @apply ring-2 ring-emerald-200;
+  }
+
+  button {
+    @apply transition-all duration-300;
+  }
+
+  /* Premium Card Effects */
+  .card {
+    @apply transition-transform duration-300 hover:scale-[1.02];
+  }
 }
