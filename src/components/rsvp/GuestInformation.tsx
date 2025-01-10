@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Home } from "lucide-react";
+import { Home, AlertTriangle } from "lucide-react";
 import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
 
 interface GuestInformationProps {
@@ -69,12 +69,21 @@ const GuestInformation = ({
           />
         </div>
 
-        <Alert className="bg-emerald-50 border-emerald-200">
-          <Home className="h-4 w-4 text-emerald-500" />
-          <AlertDescription className="text-emerald-800 ml-2">
-            Ubytovanie máte zabezpečené od nás. Nemusíte sa o nič starať.
-          </AlertDescription>
-        </Alert>
+        {accommodationStatus === 'provided' ? (
+          <Alert className="bg-emerald-50 border-emerald-200">
+            <Home className="h-4 w-4 text-emerald-500" />
+            <AlertDescription className="text-emerald-800 ml-2">
+              Ubytovanie máte zabezpečené od nás. Nemusíte sa o nič starať.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          <Alert className="bg-amber-50 border-amber-200">
+            <AlertTriangle className="h-4 w-4 text-amber-500" />
+            <AlertDescription className="text-amber-800 ml-2">
+              Ubytovanie nie je zabezpečené. Prosím, pozrite si sekciu s odporúčanými zariadeniami nižšie.
+            </AlertDescription>
+          </Alert>
+        )}
       </CardContent>
     </Card>
   );
