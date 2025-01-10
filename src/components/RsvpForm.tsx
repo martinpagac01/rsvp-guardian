@@ -32,48 +32,52 @@ const RsvpForm = ({ email, onClose }: RsvpFormProps) => {
   }
 
   return (
-    <div className="h-full flex flex-col bg-wedding-background">
-      <div className="flex items-center justify-between p-6 border-b bg-white/50 backdrop-blur-sm">
-        <h2 className="text-2xl font-serif font-medium text-gray-800">RSVP Formulár</h2>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          onClick={onClose}
-          className="hover:bg-gray-100"
-        >
-          <X className="h-6 w-6" />
-        </Button>
-      </div>
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl my-8">
+        <div className="flex items-center justify-between p-6 border-b border-[#E2E8F0]">
+          <h2 className="font-serif text-2xl text-[#1A1F2C]">RSVP Formulár</h2>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={onClose}
+            className="text-[#4A5568] hover:text-[#1A1F2C] hover:bg-[#F5F3FF] rounded-full"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
 
-      <div className="flex-1 overflow-y-auto">
-        {isSubmitted ? (
-          <div className="p-6">
+        <div className="p-6">
+          {isSubmitted ? (
             <ThankYouMessage 
-              isAttending={attendanceResponse!} 
-              onClose={onClose} 
+              isAttending={attendanceResponse === "yes"}
+              onClose={onClose}
             />
-          </div>
-        ) : !attendanceResponse && !hasExistingResponse ? (
-          <div className="p-6">
+          ) : hasExistingResponse ? (
+            <div className="text-center py-8">
+              <p className="text-[#4A5568] text-lg">
+                Už ste potvrdili svoju účasť. Ak potrebujete urobiť zmeny, kontaktujte nás prosím.
+              </p>
+            </div>
+          ) : !attendanceResponse ? (
             <AttendanceQuestion 
-              onResponse={handleAttendanceResponse}
               guestName={guestData.full_name}
+              onResponse={handleAttendanceResponse}
             />
-          </div>
-        ) : attendanceResponse && (
-          <RsvpFormContent
-            guestData={guestData}
-            formData={formData}
-            additionalGuests={additionalGuests}
-            isLoading={isLoading}
-            hasExistingResponse={hasExistingResponse}
-            onFormDataChange={handleFormDataChange}
-            onAddGuest={addGuest}
-            onRemoveGuest={removeGuest}
-            onUpdateAdditionalGuest={updateAdditionalGuest}
-            onSubmit={handleSubmit}
-          />
-        )}
+          ) : (
+            <RsvpFormContent
+              guestData={guestData}
+              formData={formData}
+              additionalGuests={additionalGuests}
+              isLoading={isLoading}
+              hasExistingResponse={hasExistingResponse}
+              onFormDataChange={handleFormDataChange}
+              onAddGuest={addGuest}
+              onRemoveGuest={removeGuest}
+              onUpdateAdditionalGuest={updateAdditionalGuest}
+              onSubmit={handleSubmit}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

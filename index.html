@@ -3,16 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wedding RSVP</title>
-    <meta name="description" content="Wedding RSVP Landing Page" />
-    <meta name="author" content="Lovable" />
+    <title>Veronika & Martin - 12. JÚL 2025</title>
+    <meta name="description" content="Join us for our wedding celebration" />
+    <meta name="author" content="Veronika & Martin" />
     <meta property="og:image" content="/og-image.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
-
   <body>
-    <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <div id="root">
+      <div class="container">
+        <header class="header">
+          <h1 class="title">Veronika & Martin</h1>
+          <p class="date">12. JÚL 2025</p>
+          <p class="subtitle">Tešíme sa na Vás</p>
+          <div class="location">
+            <p>o 14. hodine</p>
+            <p>v kostole v Přelouči,</p>
+            <p>v Českej republike.</p>
+          </div>
+          <button class="rsvp-button">Potvrdiť účasť</button>
+        </header>
+        
+        <section class="section">
+          <h2 class="section-title">Program</h2>
+          <div class="event-details">
+            <div class="event">
+              <h3>Svadobný obrad</h3>
+              <p>Evanjelický kostol Přelouč</p>
+              <p>Českobratská 53501</p>
+              <p>13:00 - 14:00</p>
+            </div>
+            <div class="event">
+              <h3>Svadobná hostina</h3>
+              <p>Samota Pierre</p>
+              <p>Podhořany u Ronova 151</p>
+              <p>14:30 - 23:00</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

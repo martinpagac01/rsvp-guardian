@@ -47,26 +47,28 @@ const EmailValidation = ({ onValidEmail }: EmailValidationProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">RSVP Potvrdenie</h2>
-        <p className="text-sm text-muted-foreground">
-          Zadajte svoj email pre potvrdenie účasti na podujatí
-        </p>
-      </div>
-      <div className="flex space-x-2">
         <Input
           type="email"
-          placeholder="vas@email.sk"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1"
+          placeholder="vas@email.com"
           required
+          className="w-full border-[#E2E8F0] focus:border-[#9b87f5] focus:ring-[#9b87f5]"
+          disabled={isLoading}
         />
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Overujem..." : "Potvrdiť"}
-        </Button>
+        <p className="text-sm text-[#4A5568]">
+          Zadajte email, na ktorý ste dostali pozvánku
+        </p>
       </div>
+      <Button
+        type="submit"
+        className="w-full bg-[#9b87f5] hover:bg-[#8B5CF6] text-white"
+        disabled={isLoading}
+      >
+        {isLoading ? "Overujem..." : "Pokračovať"}
+      </Button>
     </form>
   );
 };

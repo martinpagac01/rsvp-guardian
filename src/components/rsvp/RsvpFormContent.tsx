@@ -40,10 +40,10 @@ const RsvpFormContent = ({
   onSubmit
 }: RsvpFormContentProps) => {
   return (
-    <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-6 space-y-8">
+    <form onSubmit={onSubmit} className="space-y-8">
       {hasExistingResponse && (
-        <Alert variant="destructive" className="bg-red-50 border-red-200">
-          <AlertDescription className="text-red-800">
+        <Alert className="bg-[#F5F3FF] border-[#9b87f5] text-[#1A1F2C]">
+          <AlertDescription>
             Vaša RSVP odpoveď už bola zaznamenaná. Pre zmenu odpovede nás prosím kontaktujte.
           </AlertDescription>
         </Alert>
@@ -61,7 +61,7 @@ const RsvpFormContent = ({
       {guestData.additional_guests_allowed > 0 && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium text-gray-700">
+            <h3 className="font-serif text-xl text-[#1A1F2C]">
               Dodatoční hostia ({additionalGuests.length}/{guestData.additional_guests_allowed})
             </h3>
             <Button
@@ -69,7 +69,7 @@ const RsvpFormContent = ({
               variant="outline"
               onClick={onAddGuest}
               disabled={additionalGuests.length >= guestData.additional_guests_allowed || hasExistingResponse}
-              className="bg-white hover:bg-gray-50"
+              className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white transition-all duration-300"
             >
               <Plus className="h-4 w-4 mr-2" />
               Pridať hosťa
@@ -92,10 +92,10 @@ const RsvpFormContent = ({
         </div>
       )}
 
-      <div className="sticky bottom-0 pt-6 pb-2 bg-wedding-background/80 backdrop-blur-sm">
+      <div className="pt-6">
         <Button
           type="submit"
-          className="w-full bg-rose-500 hover:bg-rose-600 text-white font-medium py-6"
+          className="w-full bg-[#9b87f5] hover:bg-[#8B5CF6] text-white text-lg py-6 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={isLoading || hasExistingResponse}
         >
           {isLoading ? "Odosielam..." : hasExistingResponse ? "Už odoslané" : "Odoslať RSVP"}

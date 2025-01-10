@@ -1,42 +1,137 @@
-#root {
-  max-width: 1280px;
+:root {
+  --color-primary: #1a1a1a;
+  --color-secondary: #4a4a4a;
+  --color-accent: #e8c5c5;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  font-family: var(--font-secondary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+.header {
   text-align: center;
+  padding: 4rem 2rem;
+  background-image: url('/floral-top.png');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.title {
+  font-family: var(--font-primary);
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: var(--color-secondary);
+}
+
+.date {
+  font-family: var(--font-secondary);
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  margin: 2rem 0;
+  letter-spacing: 0.05em;
+}
+
+.location {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  color: var(--color-secondary);
+  margin: 1rem 0;
+}
+
+.rsvp-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rsvp-button:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.section {
+  padding: 4rem 2rem;
+  background-color: var(--color-surface);
+  margin: 2rem 0;
+  border-radius: 8px;
+}
+
+.section-title {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--color-primary);
+}
+
+.event-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.event {
+  background-color: var(--color-background);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event h3 {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.event p {
+  font-family: var(--font-secondary);
+  color: var(--color-secondary);
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .subtitle {
+    font-size: 1.25rem;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  
+  .section {
+    padding: 2rem 1rem;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
