@@ -20,7 +20,7 @@ interface GuestResponse {
       full_name: string;
       dietary_requirements: string | null;
     }[];
-  }[] | null;
+  } | null;
 }
 
 const Admin = () => {
@@ -108,8 +108,8 @@ const Admin = () => {
                   </TableCell>
                   <TableCell>{guest.email}</TableCell>
                   <TableCell>
-                    {guest.rsvp_responses?.[0] ? (
-                      guest.rsvp_responses[0].phone === 'declined' ? (
+                    {guest.rsvp_responses ? (
+                      guest.rsvp_responses.phone === 'declined' ? (
                         <div className="flex items-center gap-1 text-red-500">
                           <XCircle className="h-4 w-4" />
                           Declined
@@ -135,33 +135,33 @@ const Admin = () => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    {guest.rsvp_responses?.[0]?.phone !== 'declined' && (
+                    {guest.rsvp_responses?.phone !== 'declined' && (
                       <div className="flex items-center gap-1">
                         <Phone className="h-4 w-4 text-gray-500" />
-                        {guest.rsvp_responses?.[0]?.phone || '-'}
+                        {guest.rsvp_responses?.phone || '-'}
                       </div>
                     )}
                   </TableCell>
                   <TableCell>
-                    {guest.rsvp_responses?.[0]?.phone !== 'declined' && (
+                    {guest.rsvp_responses?.phone !== 'declined' && (
                       <div className="flex items-center gap-1">
                         <Utensils className="h-4 w-4 text-gray-500" />
-                        {guest.rsvp_responses?.[0]?.dietary_requirements || 'None'}
+                        {guest.rsvp_responses?.dietary_requirements || 'None'}
                       </div>
                     )}
                   </TableCell>
                   <TableCell>
-                    {guest.rsvp_responses?.[0]?.phone !== 'declined' && (
+                    {guest.rsvp_responses?.phone !== 'declined' && (
                       <div className="space-y-2">
-                        {guest.rsvp_responses?.[0]?.additional_guests?.length > 0 ? (
+                        {guest.rsvp_responses?.additional_guests?.length > 0 ? (
                           <div className="flex items-center gap-1 mb-2">
                             <Users className="h-4 w-4 text-gray-500" />
                             <span className="font-medium">
-                              {guest.rsvp_responses[0].additional_guests.length} additional guest(s):
+                              {guest.rsvp_responses.additional_guests.length} additional guest(s):
                             </span>
                           </div>
                         ) : null}
-                        {guest.rsvp_responses?.[0]?.additional_guests?.map((additionalGuest) => (
+                        {guest.rsvp_responses?.additional_guests?.map((additionalGuest) => (
                           <div key={additionalGuest.id} className="ml-6 text-sm border-l-2 border-gray-200 pl-2">
                             <div className="font-medium">{additionalGuest.full_name}</div>
                             {additionalGuest.dietary_requirements && (
@@ -176,10 +176,10 @@ const Admin = () => {
                     )}
                   </TableCell>
                   <TableCell>
-                    {guest.rsvp_responses?.[0] ? (
+                    {guest.rsvp_responses ? (
                       <div className="flex items-center gap-1 text-gray-600">
                         <Calendar className="h-4 w-4" />
-                        {new Date(guest.rsvp_responses[0].created_at).toLocaleDateString()}
+                        {new Date(guest.rsvp_responses.created_at).toLocaleDateString()}
                       </div>
                     ) : '-'}
                   </TableCell>
