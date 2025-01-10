@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import { CheckCircle, XCircle, User, Calendar } from "lucide-react";
+import { CheckCircle, XCircle, User, Calendar, Phone, Utensils, Home, Users } from "lucide-react";
 
 const Admin = () => {
   const { data: guestData, isLoading } = useQuery({
     queryKey: ['admin-guests'],
     queryFn: async () => {
-      const { data: approvedGuests } = await supabase
+      const { data: approvedGuests, error } = await supabase
         .from('approved_guests')
         .select(`
           *,
@@ -17,6 +17,12 @@ const Admin = () => {
             additional_guests (*)
           )
         `);
+
+      if (error) {
+        console.error('Error fetching guest data:', error);
+        throw error;
+      }
+
       return approvedGuests;
     },
   });
@@ -72,31 +78,55 @@ const Admin = () => {
                     )}
                   </TableCell>
                   <TableCell>
-                    {guest.accommodation_status === 'provided' ? (
-                      <span className="text-emerald-500">Provided</span>
-                    ) : (
-                      <span className="text-amber-500">Not Provided</span>
+                    <div className="flex items-center gap-1">
+                      <Home className="h-4 w-4" />
+                      {guest.accommodation_status === 'provided' ? (
+                        <span className="text-emerald-500">Provided</span>
+                      ) : (
+                        <span className="text-amber-500">Not Provided</span>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {guest.rsvp_responses?.[0]?.phone !== 'declined' && (
+                      <div className="flex items-center gap-1">
+                        <Phone className="h-4 w-4 text-gray-500" />
+                        {guest.rsvp_responses?.[0]?.phone || '-'}
+                      </div>
                     )}
                   </TableCell>
                   <TableCell>
-                    {guest.rsvp_responses?.[0]?.phone !== 'declined' 
-                      ? guest.rsvp_responses?.[0]?.phone 
-                      : '-'}
-                  </TableCell>
-                  <TableCell>
-                    {guest.rsvp_responses?.[0]?.dietary_requirements || '-'}
-                  </TableCell>
-                  <TableCell>
-                    {guest.rsvp_responses?.[0]?.additional_guests?.map((additionalGuest, index) => (
-                      <div key={additionalGuest.id} className="text-sm">
-                        {index + 1}. {additionalGuest.full_name}
-                        {additionalGuest.dietary_requirements && (
-                          <div className="text-xs text-gray-500 ml-4">
-                            Diet: {additionalGuest.dietary_requirements}
-                          </div>
-                        )}
+                    {guest.rsvp_responses?.[0]?.phone !== 'declined' && (
+                      <div className="flex items-center gap-1">
+                        <Utensils className="h-4 w-4 text-gray-500" />
+                        {guest.rsvp_responses?.[0]?.dietary_requirements || 'None'}
                       </div>
-                    )) || '-'}
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {guest.rsvp_responses?.[0]?.phone !== 'declined' && (
+                      <div className="space-y-2">
+                        {guest.rsvp_responses?.[0]?.additional_guests?.length > 0 ? (
+                          <div className="flex items-center gap-1 mb-2">
+                            <Users className="h-4 w-4 text-gray-500" />
+                            <span className="font-medium">
+                              {guest.rsvp_responses[0].additional_guests.length} additional guest(s):
+                            </span>
+                          </div>
+                        ) : null}
+                        {guest.rsvp_responses?.[0]?.additional_guests?.map((additionalGuest, index) => (
+                          <div key={additionalGuest.id} className="ml-6 text-sm border-l-2 border-gray-200 pl-2">
+                            <div className="font-medium">{additionalGuest.full_name}</div>
+                            {additionalGuest.dietary_requirements && (
+                              <div className="text-xs text-gray-600 flex items-center gap-1 mt-1">
+                                <Utensils className="h-3 w-3" />
+                                {additionalGuest.dietary_requirements}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </TableCell>
                   <TableCell>
                     {guest.rsvp_responses?.[0] ? (
