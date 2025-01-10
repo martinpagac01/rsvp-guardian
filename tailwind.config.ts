@@ -53,7 +53,17 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         wedding: {
-          background: "#f7f2e7",
+          primary: "#9b87f5",
+          secondary: "#7E69AB",
+          accent: "#D6BCFA",
+          text: {
+            primary: "#1A1F2C",
+            secondary: "#403E43",
+          },
+          background: {
+            primary: "#F1F0FB",
+            secondary: "#F2FCE2",
+          },
         },
       },
       fontFamily: {
