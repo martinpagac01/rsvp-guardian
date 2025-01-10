@@ -3,18 +3,48 @@ import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 import { CheckCircle, XCircle, User, Calendar, Phone, Utensils, Home, Users } from "lucide-react";
+import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
+
+interface GuestResponse {
+  id: string;
+  email: string;
+  full_name: string;
+  accommodation_status: AccommodationStatus;
+  rsvp_responses: {
+    id: string;
+    phone: string;
+    dietary_requirements: string | null;
+    created_at: string;
+    additional_guests: {
+      id: string;
+      full_name: string;
+      dietary_requirements: string | null;
+    }[];
+  }[] | null;
+}
 
 const Admin = () => {
-  const { data: guestData, isLoading } = useQuery({
+  const { data: guestData, isLoading, error } = useQuery({
     queryKey: ['admin-guests'],
     queryFn: async () => {
-      const { data: approvedGuests, error } = await supabase
+      console.log('Fetching guest data...');
+      const { data, error } = await supabase
         .from('approved_guests')
         .select(`
-          *,
+          id,
+          email,
+          full_name,
+          accommodation_status,
           rsvp_responses (
-            *,
-            additional_guests (*)
+            id,
+            phone,
+            dietary_requirements,
+            created_at,
+            additional_guests (
+              id,
+              full_name,
+              dietary_requirements
+            )
           )
         `);
 
@@ -23,12 +53,29 @@ const Admin = () => {
         throw error;
       }
 
-      return approvedGuests;
+      console.log('Fetched guest data:', data);
+      return data as GuestResponse[];
     },
   });
 
   if (isLoading) {
-    return <div className="p-8">Loading...</div>;
+    return (
+      <div className="container mx-auto py-8 px-4">
+        <div className="flex items-center justify-center h-32">
+          <p className="text-gray-500">Loading guest data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto py-8 px-4">
+        <div className="flex items-center justify-center h-32">
+          <p className="text-red-500">Error loading guest data. Please try again.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -114,7 +161,7 @@ const Admin = () => {
                             </span>
                           </div>
                         ) : null}
-                        {guest.rsvp_responses?.[0]?.additional_guests?.map((additionalGuest, index) => (
+                        {guest.rsvp_responses?.[0]?.additional_guests?.map((additionalGuest) => (
                           <div key={additionalGuest.id} className="ml-6 text-sm border-l-2 border-gray-200 pl-2">
                             <div className="font-medium">{additionalGuest.full_name}</div>
                             {additionalGuest.dietary_requirements && (
