@@ -9,23 +9,23 @@ import {
 const faqs = [
   {
     question: "Kedy mám potvrdiť účasť?",
-    answer: "Prosíme o potvrdenie účasti do 15. júna 2024. Pomôže nám to s plánovaním a organizáciou."
+    answer: "Prosíme o potvrdenie účasti do 31. januára 2025. Pomôže nám to s plánovaním a organizáciou."
   },
   {
     question: "Môžem prísť s partnerom/partnerkou?",
-    answer: "Áno, pozvánka platí pre vás a vášho partnera/partnerku. Prosíme, uveďte to pri potvrdení účasti."
+    answer: "Pozvánka je viazaná len na jednu osobu. V prípade, že počítame aj s vašim partnerom/partnerkou, systém vám umoží dopozvať ďalších ľudí."
   },
   {
-    question: "Bude k dispozícii parkovanie?",
-    answer: "Áno, pri kostole aj na mieste hostiny je dostatok parkovacích miest."
+    question: "Ako je to s deťmi? Môžem priniesť aj psa?",
+    answer: "Boli by sme veĺmi radi, keby na svadobnú hostinu prídete bez detí a domácich miláčikov. Radi by sme, aby ste si deň užili naplno a veríme, že vám to situácia dovolí. V prípade, že by vám to situácia nedovolila, kontaktujte nás prosím vopred."
   },
   {
     question: "Aké je menu?",
-    answer: "Menu bude obsahovať výber z tradičných českých a slovenských jedál. Ak máte špeciálne diétne požiadavky, prosím, informujte nás."
+    answer: "Menu bude obsahovať výber z tradičných českých a slovenských jedál. Ak máte špeciálne diétne požiadavky, prosím, vyplňte ich pri potvrdení svojej účasti."
   },
   {
     question: "Čo ak potrebujem prenocovať?",
-    answer: "V sekcii Ubytovanie nájdete naše odporúčané možnosti ubytovania v okolí. Odporúčame rezervovať čo najskôr."
+    answer: "Najbližsia rodina a spoluorganizátori majú ubytovanie zabezpečené priamo na mieste hostiny. Ostatných prosíme o zabeuzpečenie ubytovania po vlastnej ose. V sekcii Ubytovanie nájdete naše odporúčané možnosti ubytovania v okolí. Odporúčame rezervovať čo najskôr."
   }
 ];
 

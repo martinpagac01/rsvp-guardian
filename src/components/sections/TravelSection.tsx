@@ -1,4 +1,4 @@
-import { Car, Train, Map } from "lucide-react";
+import { Car, Train, Map, Bus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -27,27 +27,34 @@ const travelOptions = [
   }
 ];
 
+const busSchedule = [
+  { time: "13:30", event: "Odchod z Hotela Grand Čáslav" },
+  { time: "13:45", event: "Príjazd do Kostola Přelouč" },
+  { time: "15:00", event: "Odchod z Kostola Přelouč" },
+  { time: "15:20", event: "Príjazd do Samoty Pierre na svadobnú oslavu" }
+];
+
 const TravelSection = () => {
   return (
-    <section className="py-20">
+    <section className="py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <Map className="mx-auto h-10 w-10 text-[#9b87f5] mb-4" />
+            <Map className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
             <h2 className="text-3xl md:text-4xl font-serif mb-4 text-[#1A1F2C]">
-              Ako sa k nám dostať
+              Doprava na miesto obradu a hostiny
             </h2>
-            <p className="text-[#4A5568] max-w-2xl mx-auto">
-              Nájdite najlepší spôsob dopravy na našu svadbu
+            <p className="text-lg text-[#4A5568] max-w-2xl mx-auto">
+              Na miesto svadobného obradu sa bez problémov dostanete autom alebo vlakom. Prípadne môžete využiť "Wedding Shuttle" podľa rozvrhu nižšie. 
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
             {travelOptions.map((option) => (
-              <Card key={option.title} className="bg-white border-0 shadow-lg">
+              <Card key={option.title} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <option.icon className="mx-auto h-10 w-10 text-[#9b87f5] mb-4" />
+                    <option.icon className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
                     <h3 className="font-serif text-xl font-medium text-[#1A1F2C] mb-2">
                       {option.title}
                     </h3>
@@ -59,9 +66,9 @@ const TravelSection = () => {
                       <h4 className="font-medium text-[#1A1F2C] mb-2">Navigácia:</h4>
                       <ul className="space-y-2">
                         {option.directions.map((direction, index) => (
-                          <li key={index} className="text-[#4A5568] flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#9b87f5]" />
-                            {direction}
+                          <li key={index} className="text-[#4A5568] flex items-start gap-2">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#9b87f5] mt-2" />
+                            <span>{direction}</span>
                           </li>
                         ))}
                       </ul>
@@ -90,23 +97,34 @@ const TravelSection = () => {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <Button
-              variant="outline"
-              className="text-[#9b87f5] border-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
-              asChild
-            >
-              <a
-                href="https://maps.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
-              >
-                Otvoriť v Google Maps
-                <Map className="h-4 w-4" />
-              </a>
-            </Button>
-          </div>
+          {/* Bus Schedule Card - Below other transport options */}
+          <Card className="bg-gradient-to-br from-[#9b87f5]/10 to-white border-0 shadow-lg">
+            <CardContent className="p-8">
+              <div className="text-center mb-8">
+                <Bus className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
+                <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">
+                "Wedding Shuttle" - svadobná autobusová doprava
+                </h3>
+                <p className="text-[#4A5568] mb-6 max-w-2xl mx-auto">
+                  Pre váš komfort sme zabezpečili autobusovú dopravu medzi všetkými dôležitými miestami
+                </p>
+              </div>
+              <div className="max-w-2xl mx-auto">
+                <div className="space-y-4">
+                  {busSchedule.map((item, index) => (
+                    <div key={index} className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                      <div className="font-medium text-[#9b87f5] min-w-[4.5rem] text-center">
+                        {item.time}
+                      </div>
+                      <div className="text-[#4A5568] flex-1">
+                        {item.event}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

@@ -6,30 +6,56 @@ const DateAndPlaceSection = () => {
   return (
     <section className="py-16 bg-[#F5F3FF]/30">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-serif text-center mb-12 text-[#1A1F2C]">Program</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-8 text-center space-y-4">
-              <Calendar className="mx-auto h-8 w-8 text-[#9b87f5]" />
-              <h3 className="font-serif text-xl font-medium text-[#1A1F2C]">Svadobný obrad</h3>
-              <div className="space-y-2 text-[#4A5568]">
-                <p>Evanjelický kostol Přelouč</p>
-                <p>Českobratská 53501</p>
-                <p className="font-medium text-[#9b87f5]">13:00 - 14:00</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-8 text-center space-y-4">
-              <MapPin className="mx-auto h-8 w-8 text-[#9b87f5]" />
-              <h3 className="font-serif text-xl font-medium text-[#1A1F2C]">Svadobná hostina</h3>
-              <div className="space-y-2 text-[#4A5568]">
-                <p>Samota Pierre</p>
-                <p>Podhořany u Ronova 151</p>
-                <p className="font-medium text-[#9b87f5]">14:30 - 14:00</p>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <Calendar className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
+            <h2 className="text-3xl md:text-4xl font-serif mb-4 text-[#1A1F2C]">Program</h2>
+            <p className="text-lg text-[#4A5568] max-w-2xl mx-auto">
+              Svadobný obrad a hostina sa uskutočnia na rôznych miestach. Budeme sa nachádzať v regióne bez možnosti jednoduchej hromadnej dopravy. Preto prosíme venujte náležitú pozornosť plánovaniu vašej návštevy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">Svadobný obrad</h3>
+                  <p className="text-[#4A5568] mb-2">Evanjelický kostol Přelouč</p>
+                  <p className="text-[#4A5568]">Českobratská 53501</p>
+                  <p className="font-medium text-[#9b87f5] mt-4">13:00 - 14:00</p>
+                  <hr className="my-6 border-t border-[#E2E8F0]" />
+                  <a 
+                    href="https://maps.app.goo.gl/KWXd1dWDvbvtpocn7" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-[#9b87f5] hover:underline"
+                  >
+                    Zobraziť na Google Maps
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">Svadobná hostina</h3>
+                  <p className="text-[#4A5568] mb-2">Samota Pierre</p>
+                  <p className="text-[#4A5568]">Podhořany u Ronova 151</p>
+                  <p className="font-medium text-[#9b87f5] mt-4">14:30 - 23:00</p>
+                  <hr className="my-6 border-t border-[#E2E8F0]" />
+                  <a 
+                    href="https://maps.app.goo.gl/KWXd1dWDvbvtpocn7" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-[#9b87f5] hover:underline"
+                  >
+                    Zobraziť na Google Maps
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
         
         <div className="mt-12 text-center">
@@ -39,7 +65,7 @@ const DateAndPlaceSection = () => {
             asChild
           >
             <a
-              href="https://calendar.google.com/calendar/r/eventedit?text=Svadba%20Veroniky%20a%20Martina&dates=20240715T110000Z/20240715T220000Z&details=Svadobný%20obrad:%2013:00%20-%2014:00%20v%20Evanjelickom%20kostole%20Přelouč%0ASvadobná%20hostina:%2014:30%20-%2014:00%20v%20Samota%20Pierre&location=Evanjelický%20kostol%20Přelouč,%20Českobratská%2053501"
+              href="https://calendar.google.com/calendar/r/eventedit?text=Svadba%20Veroniky%20a%20Martina&dates=20240715T110000Z/20240715T220000Z&details=Svadobný%20obrad:%2013:00%20-%2014:00%20v%20Evanjelickom%20kostole%20Přelouč%0ASvadobná%20hostina:%2014:30%20-%2023:00%20v%20Samota%20Pierre&location=Evanjelický%20kostol%20Přelouč,%20Českobratská%2053501"
               target="_blank"
               rel="noopener noreferrer"
             >
