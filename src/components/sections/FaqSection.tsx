@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "Ako je to s deťmi? Môžem priniesť aj psa?",
-    answer: "Boli by sme veĺmi radi, keby na svadobnú hostinu prídete bez detí a domácich miláčikov. Radi by sme, aby ste si deň užili naplno a veríme, že vám to situácia dovolí. V prípade, že by vám to situácia nedovolila, kontaktujte nás prosím vopred."
+    answer: "Boli by sme veľmi radi, keby na svadobnú hostinu prídete bez detí a domácich miláčikov. Radi by sme, aby ste si deň užili naplno a veríme, že vám to situácia dovolí. V prípade, že by vám to situácia nedovolila, kontaktujte nás prosím vopred."
   },
   {
     question: "Aké je menu?",
@@ -25,7 +25,11 @@ const faqs = [
   },
   {
     question: "Čo ak potrebujem prenocovať?",
-    answer: "Najbližsia rodina a spoluorganizátori majú ubytovanie zabezpečené priamo na mieste hostiny. Ostatných prosíme o zabeuzpečenie ubytovania po vlastnej ose. V sekcii Ubytovanie nájdete naše odporúčané možnosti ubytovania v okolí. Odporúčame rezervovať čo najskôr."
+    answer: "Najbližsia rodina a spoluorganizátori majú ubytovanie zabezpečené priamo na mieste hostiny. Ostatných prosíme o zabezpečenie ubytovania po vlastnej ose. V sekcii Ubytovanie nájdete naše odporúčané možnosti ubytovania v okolí. Miesto si, prosím, rezervujte čo najskôr."
+  },
+  {
+    question: "Ako riešiť svadobné dary?",
+    answer: "Najväčším darom pre nás bude vaša účasť. V prípade, že sa rozhodnete nám predsa niečo podarovať, poteší nás finančný príspevok na pokrytie nákladov spojených s organizáciou svadby."
   }
 ];
 

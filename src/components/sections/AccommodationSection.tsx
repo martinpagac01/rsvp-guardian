@@ -13,12 +13,12 @@ const accommodations = [
     recommended: true
   },
   {
-    name: "Penzión U Radnice",
-    description: "Útulný penzión v centre mesta",
-    address: "Přelouč, Česká republika",
-    price: "od 45€ za noc",
-    link: "https://penzion-uradnice.cz",
-    features: ["Wi-Fi", "Parkovanie", "Rodinná atmosféra"],
+    name: "Ubytovanie u Horských",
+    description: "Útulný penzión v centre mesta, v pešej vzdialenosti od Hotelu Grand",
+    address: "Čáslav, Česká republika",
+    price: "od 1312,- Kč za noc",
+    link: "https://www.booking.com/hotel/cz/ubytovani-u-horskych.cs.html?aid=304142&label=gen173nr-1FCAEoggI46AdIM1gEaDqIAAQGYAQW4AQfIAQzYAQHoAQH4AQyIAgGoAgO4Asicm7wGwAIB0gIkOWE4NjI0ZWUtYzk0NC00ODFkLWI0NGYtNGU2ZWZlNmRkOTk32AIG4AIB&sid=4d81d0183c67a5e052d665c6087d5788&atlas_src=hp_iw_title&checkin=2025-07-12&checkout=2025-07-13&dist=0&group_adults=2&group_children=0&no_rooms=1&room1=A%2CA&sb_price_type=total&srepoch=1736888350&srpvid=f46092b456cc014e&type=total",
+    features: ["Wi-Fi", "Parkovanie zdarma"],
     recommended: false
   }
 ];
@@ -47,9 +47,7 @@ const AccommodationSection = () => {
               >
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-serif text-xl font-medium text-[#1A1F2C]">
-                      {accommodation.name}
-                    </h3>
+                    <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">{accommodation.name}</h3>
                     {accommodation.recommended && (
                       <div className="flex items-center text-[#9b87f5] text-sm font-medium">
                         <Star className="h-4 w-4 mr-1 fill-current" />
@@ -98,7 +96,7 @@ const AccommodationSection = () => {
             <div className="bg-[#FFF5F5] border border-[#FED7D7] rounded-lg p-6 flex items-start gap-4">
               <div className="text-[#E53E3E] text-xl font-bold">!</div>
               <div className="text-[#4A5568]">
-                Zvážte prenocovanie v okolí Čáslavy. Z Čáslavy odchádza aj "Wedding Shuttle", ktorý môžu využiť všetci hostia. V prípade, že zvolíte ubytovanie v inej lokalite, napr. Kutná Hora, počítajte s vyššími nákladmi na taxi a dĺžkou cesty cca 30 minúť.
+                Zvážte prenocovanie v blízkom okolí Čáslavy. Z Čáslavy odchádza aj "Wedding Shuttle", ktorý môžu využiť všetci hostia svadby. V prípade, že zvolíte ubytovanie v inej lokalite, napr. Kutná Hora, počítajte s vyššími nákladmi na taxi a dĺžkou cesty cca 30 minúť.
               </div>
             </div>
           </div>

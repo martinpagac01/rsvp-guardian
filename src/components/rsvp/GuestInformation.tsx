@@ -27,7 +27,7 @@ const GuestInformation = ({
       <div className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="fullName" className="text-[#1A1F2C] font-medium">
-            Celé meno
+            Meno
           </Label>
           <Input
             id="fullName"

@@ -11,7 +11,7 @@ const DateAndPlaceSection = () => {
             <Calendar className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
             <h2 className="text-3xl md:text-4xl font-serif mb-4 text-[#1A1F2C]">Program</h2>
             <p className="text-lg text-[#4A5568] max-w-2xl mx-auto">
-              Svadobný obrad a hostina sa uskutočnia na rôznych miestach. Budeme sa nachádzať v regióne bez možnosti jednoduchej hromadnej dopravy. Preto prosíme venujte náležitú pozornosť plánovaniu vašej návštevy.
+              Svadobný obrad a hostina sa uskutočnia na dvoch rôznych miestach. 
             </p>
           </div>
 
@@ -22,7 +22,7 @@ const DateAndPlaceSection = () => {
                   <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">Svadobný obrad</h3>
                   <p className="text-[#4A5568] mb-2">Evanjelický kostol Přelouč</p>
                   <p className="text-[#4A5568]">Českobratská 53501</p>
-                  <p className="font-medium text-[#9b87f5] mt-4">13:00 - 14:00</p>
+                  <p className="font-medium text-[#9b87f5] mt-4">14:00 - 15:00</p>
                   <hr className="my-6 border-t border-[#E2E8F0]" />
                   <a 
                     href="https://maps.app.goo.gl/KWXd1dWDvbvtpocn7" 
@@ -42,7 +42,7 @@ const DateAndPlaceSection = () => {
                   <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">Svadobná hostina</h3>
                   <p className="text-[#4A5568] mb-2">Samota Pierre</p>
                   <p className="text-[#4A5568]">Podhořany u Ronova 151</p>
-                  <p className="font-medium text-[#9b87f5] mt-4">14:30 - 23:00</p>
+                  <p className="font-medium text-[#9b87f5] mt-4">od 15:30</p>
                   <hr className="my-6 border-t border-[#E2E8F0]" />
                   <a 
                     href="https://maps.app.goo.gl/KWXd1dWDvbvtpocn7" 
@@ -65,7 +65,7 @@ const DateAndPlaceSection = () => {
             asChild
           >
             <a
-              href="https://calendar.google.com/calendar/r/eventedit?text=Svadba%20Veroniky%20a%20Martina&dates=20240715T110000Z/20240715T220000Z&details=Svadobný%20obrad:%2013:00%20-%2014:00%20v%20Evanjelickom%20kostole%20Přelouč%0ASvadobná%20hostina:%2014:30%20-%2023:00%20v%20Samota%20Pierre&location=Evanjelický%20kostol%20Přelouč,%20Českobratská%2053501"
+              href="https://calendar.google.com/calendar/r/eventedit?text=Svadba%20Veroniky%20a%20Martina&dates=20240715T120000Z/20240715T230000Z&details=Svadobný%20obrad:%2014:00%20-%2015:00%20v%20Evanjelickom%20kostole%20Přelouč%0ASvadobná%20hostina:%20od%2015:30%20na%20Samote%20Pierre&location=Evanjelický%20kostol%20Přelouč,%20Českobratská%2053501"
               target="_blank"
               rel="noopener noreferrer"
             >

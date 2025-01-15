@@ -8,7 +8,7 @@ const travelOptions = [
     icon: Car,
     description: "Z Prahy: 1 hodina cesty po diaľnici D11",
     directions: [
-      "Sledujte diaľnicu D11 smerom na Hradec Králové",
+      "Choďte po diaľnici D11 smerom na Hradec Králové",
       "Zíďte na výjazde 84 smerom na Přelouč",
       "Pokračujte po ceste II/333"
     ],
@@ -28,10 +28,10 @@ const travelOptions = [
 ];
 
 const busSchedule = [
-  { time: "13:30", event: "Odchod z Hotela Grand Čáslav" },
-  { time: "13:45", event: "Príjazd do Kostola Přelouč" },
-  { time: "15:00", event: "Odchod z Kostola Přelouč" },
-  { time: "15:20", event: "Príjazd do Samoty Pierre na svadobnú oslavu" }
+  { time: "13:00", event: "Odchod z Hotela Grand Čáslav" },
+  { time: "13:30", event: "Príjazd do kostola v Přelouči" },
+  { time: "15:30", event: "Odchod z kostola v Přelouči" },
+  { time: "16:00", event: "Príjazd na Samotu Pierre" }
 ];
 
 const TravelSection = () => {

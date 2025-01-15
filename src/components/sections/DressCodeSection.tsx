@@ -36,7 +36,7 @@ const DressCodeSection = () => {
             <Shirt className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
             <h2 className="text-3xl md:text-4xl font-serif mb-4 text-[#1A1F2C]">Dress Code</h2>
             <p className="text-lg text-[#4A5568] max-w-2xl mx-auto mb-8">
-              Aby sme vytvorili elegantnú atmosféru, ktorá si tento výnimočný deň zaslúži
+              Aby sme vytvorili elegantnú atmosféru, ktorú si tento výnimočný deň zaslúži.
             </p>
           </div>
 

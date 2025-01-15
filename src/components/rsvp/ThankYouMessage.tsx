@@ -23,7 +23,7 @@ const ThankYouMessage = ({ isAttending, onClose }: ThankYouMessageProps) => {
         </h3>
         <p className="text-lg text-[#4A5568]">
           {isAttending 
-            ? "Tešíme sa na Vás."
+            ? "Tešíme sa na vás."
             : "Mrzí nás, že sa nemôžete zúčastniť."}
         </p>
       </div>
