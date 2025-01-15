@@ -34,7 +34,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="w-full max-w-[95%] sm:max-w-[85%] md:max-w-[75%] mx-auto mt-10 md:mt-12">
+          <div className="w-full max-w-[95%] sm:max-w-[85%] md:max-w-[75%] mx-auto mt-10 md:mt-12 opacity-85">
             <img 
               src="/img/illustration.svg" 
               alt="Illustration" 
