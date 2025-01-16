@@ -62,7 +62,7 @@ const GuestInformation = ({
             id="dietary"
             value={dietary}
             onChange={(e) => onFormDataChange('dietary', e.target.value)}
-            placeholder="Vegetariánske, vegánske, alergie..."
+            placeholder="Vegetariánske menu/alerge"
             disabled={isDisabled}
             className="bg-white border-[#E2E8F0] focus:border-[#9b87f5] focus:ring-[#9b87f5] min-h-[100px] resize-none"
           />
@@ -80,7 +80,7 @@ const GuestInformation = ({
         <Alert className="bg-[#F5F3FF] border-[#9b87f5]">
           <AlertTriangle className="h-4 w-4 text-[#9b87f5]" />
           <AlertDescription className="text-[#1A1F2C] ml-2">
-            Ubytovanie nie je zabezpečené. Prosím, pozrite si sekciu s odporúčanými zariadeniami nižšie.
+            Ubytovanie nie je zabezpečené. Prosím, pozrite si sekciu s odporúčanými zariadeniami.
           </AlertDescription>
         </Alert>
       )}

@@ -7,10 +7,10 @@ const dressCodeItems = [
     title: "--Garden Party--",
     description: "Očakávame krásny slnečný a horúci deň. Oblečte sa a obujte sa preto pohodle, aby ste vydržali tancovať do rána. Miesto má veľkú záhradu a radi by sme trávili vačšinu času vonku.",
     recommendations: [
-      "Páni: Oblek/nohavice a košeľa svetlých farieb (béžová, svetlo modrá, svetlo zelená)",
+      "Páni: Oblek/nohavice a košeľa svetlých farieb.",
       "Dámy: Šaty vo svetlých farbách, ľahké, vzdušné.",
     ],
-    notes: "Prosíme, žiadnu čiernu, bielu, červenú a výrazné farby."
+    notes: "Prosíme, žiadnu čiernu, bielu, červenú a iné výrazné farby."
   }
 ];
 
@@ -77,7 +77,7 @@ const DressCodeSection = () => {
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="w-16 h-16 bg-[#E8D8BD] rounded-full shadow-md" />
-                  <span className="mt-3 text-[#4A5568]">Béžová</span>
+                  <span className="mt-3 text-[#4A5568]">Béžová (iba muži)</span>
                 </div>
               </div>
             </div>

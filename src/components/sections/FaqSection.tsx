@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: "Aké je menu?",
-    answer: "Menu bude obsahovať výber z tradičných českých a slovenských jedál. Ak máte špeciálne diétne požiadavky, prosím, vyplňte ich pri potvrdení svojej účasti."
+    answer: "Menu bude obsahovať výber z tradičných českých a slovenských jedál. Ak máte špeciálne diétne požiadavky, prosím, vyplňte ich pri potvrdení svojej účasti, napr. vegetariánske menu/alergie."
   },
   {
     question: "Čo ak potrebujem prenocovať?",

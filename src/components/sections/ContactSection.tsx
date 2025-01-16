@@ -5,7 +5,7 @@ const ContactSection = () => {
   const contacts = [
     {
       name: "Veronika",
-      phone: "+420 735 865 474",
+      phone: "+420 702 188 493",
       whatsapp: "https://wa.me/420735865474"
     },
     {
