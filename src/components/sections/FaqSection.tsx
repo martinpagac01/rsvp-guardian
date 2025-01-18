@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "Ako je to s deťmi? Môžem priniesť aj psa?",
-    answer: "Boli by sme veľmi radi, keby na svadobnú hostinu prídete bez detí a domácich miláčikov. Radi by sme, aby ste si deň užili naplno a veríme, že vám to situácia dovolí. V prípade, že by vám to situácia nedovolila, kontaktujte nás prosím vopred."
+    answer: "Na svadobnú hostinu prosím príďte bez detí a domácich miláčikov. Radi by sme, aby ste si deň užili naplno a veríme, že vám to situácia dovolí."
   },
   {
     question: "Aké je menu?",
@@ -44,7 +44,7 @@ const FaqSection = () => {
               Často kladené otázky
             </h2>
             <p className="text-[#4A5568] max-w-2xl mx-auto">
-              Odpovede na najčastejšie otázky. Ak tu nenájdete odpoveď na vašu otázku, neváhajte nás kontaktovať.
+              Ak tu nenájdete odpoveď na vašu otázku, neváhajte nás kontaktovať.
             </p>
           </div>
 

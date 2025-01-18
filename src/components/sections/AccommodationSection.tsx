@@ -9,7 +9,7 @@ const accommodations = [
     address: "Čáslav, Česká republika",
     price: "od 1690,- Kč za noc",
     link: "https://www.grandcaslav.cz/cs/",
-    features: ["Wi-Fi", "Parkovanie", "Raňajky v cene"],
+    features: ["Wi-Fi", "Parkovanie zdarma", "Raňajky v cene"],
     recommended: true
   },
   {
@@ -70,22 +70,27 @@ const AccommodationSection = () => {
                       </span>
                     ))}
                   </div>
-                  {accommodation.name === "Hotel Grand" && (
-                    <div className="mt-4 pt-4 border-t border-[#E2E8F0]">
-                      <p className="text-[#4A5568] font-medium">
-                        Pri rezervácii uveďte heslo: <span className="text-[#9b87f5]">MPVHG</span>
+                  <div className="mt-4 pt-4 border-t border-[#E2E8F0]">
+                    <a
+                      href={accommodation.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-[#9b87f5] hover:underline"
+                    >
+                      Rezervovať
+                      <ExternalLink className="h-4 w-4 ml-1" />
+                    </a>
+                    {accommodation.name === "Hotel Grand" && (
+                      <p className="text-[#4A5568] text-sm mt-4">
+                        Celý hotel je rezervovaný pre našich svadobných hostí. Pre rezerváciu kontaktujte recepciu hotela.
                       </p>
-                    </div>
-                  )}
-                  <a
-                    href={accommodation.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-[#9b87f5] hover:underline"
-                  >
-                    Rezervovať
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
+                    )}
+                    {accommodation.name === "Ubytovanie u Horských" && (
+                      <p className="text-[#4A5568] text-sm mt-4">
+                        
+                      </p>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             ))}
