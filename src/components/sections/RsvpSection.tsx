@@ -17,7 +17,7 @@ const RsvpSection = () => {
               Potvrďte svoju účasť
             </h2>
             <p className="text-[#4A5568] max-w-2xl mx-auto">
-              Prosíme o potvrdenie účasti do 15. júna 2024
+              Prosíme o potvrdenie účasti do 31. januára 2025
             </p>
           </div>
 
