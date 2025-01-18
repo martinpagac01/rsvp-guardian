@@ -8,9 +8,8 @@ const dressCodeItems = [
     description: "Očakávame krásny slnečný a horúci deň. Oblečte sa a obujte sa preto pohodle, aby ste vydržali tancovať do rána. Miesto má veľkú záhradu a radi by sme trávili vačšinu času vonku.",
     recommendations: [
       "Páni: Oblek/nohavice a košeľa svetlých farieb.",
-      "Dámy: Šaty vo svetlých farbách, ľahké, vzdušné.",
-    ],
-    notes: "Prosíme, žiadnu čiernu, bielu, červenú a iné výrazné farby."
+      "Dámy: Šaty vo svetlých modrých a zelených farbách, ľahké, vzdušné. Prosíme, žiadnu čiernu, bielu, červenú a iné výrazné farby.",
+    ]
   }
 ];
 
@@ -56,16 +55,14 @@ const DressCodeSection = () => {
                     </p>
                   ))}
                 </div>
-                <p className="text-[#4A5568] font-medium text-center bg-[#F7F9FC] p-4 rounded-lg">
-                  {item.notes}
-                </p>
+              
               </CardContent>
             </Card>
           ))}
 
           <div className="mt-12 space-y-12">
             <div className="text-center">
-              <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-6">Odporúčané farby</h3>
+              <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-6">Farby svadby</h3>
               <div className="flex justify-center gap-8 flex-wrap">
                 <div className="flex flex-col items-center">
                   <div className="w-16 h-16 bg-[#C5CFB1] rounded-full shadow-md" />
