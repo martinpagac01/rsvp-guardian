@@ -1,8 +1,24 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import { CheckCircle, XCircle, User, Calendar, Phone, Utensils, Home, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { 
+  CheckCircle, 
+  XCircle, 
+  User, 
+  Calendar, 
+  Phone, 
+  Utensils, 
+  Home, 
+  Users,
+  Copy,
+  Filter
+} from "lucide-react";
+import GuestAnalytics from "@/components/admin/GuestAnalytics";
+import { toast } from "@/components/ui/use-toast";
 import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
 
 interface GuestResponse {
@@ -24,10 +40,12 @@ interface GuestResponse {
 }
 
 const Admin = () => {
-  const { data: guestData, isLoading, error } = useQuery({
+  const [selectedGuests, setSelectedGuests] = useState<string[]>([]);
+  const [showOnlyNonResponders, setShowOnlyNonResponders] = useState(false);
+
+  const { data: guestData, isLoading } = useQuery({
     queryKey: ['admin-guests'],
     queryFn: async () => {
-      console.log('Fetching guest data...');
       const { data, error } = await supabase
         .from('approved_guests')
         .select(`
@@ -48,15 +66,71 @@ const Admin = () => {
           )
         `);
 
-      if (error) {
-        console.error('Error fetching guest data:', error);
-        throw error;
-      }
-
-      console.log('Fetched guest data:', data);
+      if (error) throw error;
       return data as GuestResponse[];
     },
   });
+
+  const analytics = {
+    totalGuests: guestData?.length || 0,
+    responded: guestData?.filter(g => g.rsvp_responses).length || 0,
+    confirmed: guestData?.filter(g => g.rsvp_responses && g.rsvp_responses.phone !== 'declined').length || 0,
+    declined: guestData?.filter(g => g.rsvp_responses?.phone === 'declined').length || 0,
+    needAccommodation: guestData?.filter(g => g.accommodation_status === 'needed').length || 0,
+    totalAdditionalGuests: guestData?.reduce((total, guest) => {
+      return total + (guest.rsvp_responses?.additional_guests?.length || 0);
+    }, 0) || 0,
+  };
+
+  const filteredGuests = guestData?.filter(guest => 
+    !showOnlyNonResponders || !guest.rsvp_responses
+  );
+
+  const handleSelectAll = () => {
+    if (selectedGuests.length === filteredGuests?.length) {
+      setSelectedGuests([]);
+    } else {
+      setSelectedGuests(filteredGuests?.map(g => g.id) || []);
+    }
+  };
+
+  const handleSelectGuest = (guestId: string) => {
+    setSelectedGuests(prev => 
+      prev.includes(guestId) 
+        ? prev.filter(id => id !== guestId)
+        : [...prev, guestId]
+    );
+  };
+
+  const handleCopyEmails = async () => {
+    if (!selectedGuests.length) {
+      toast({
+        title: "No guests selected",
+        description: "Please select at least one guest to copy their email addresses.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const selectedEmails = guestData
+      ?.filter(guest => selectedGuests.includes(guest.id))
+      .map(guest => guest.email)
+      .join(', ');
+
+    try {
+      await navigator.clipboard.writeText(selectedEmails || '');
+      toast({
+        title: "Emails copied successfully",
+        description: `${selectedGuests.length} email addresses copied to clipboard.`,
+      });
+    } catch (err) {
+      toast({
+        title: "Failed to copy emails",
+        description: "There was an error copying emails to clipboard. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -68,25 +142,42 @@ const Admin = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="container mx-auto py-8 px-4">
-        <div className="flex items-center justify-center h-32">
-          <p className="text-red-500">Error loading guest data. Please try again.</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-serif mb-8">Guest Responses Overview</h1>
       
+      <GuestAnalytics {...analytics} />
+
+      <div className="flex gap-4 mb-6">
+        <Button
+          variant="outline"
+          onClick={() => setShowOnlyNonResponders(!showOnlyNonResponders)}
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          {showOnlyNonResponders ? "Show All" : "Show Non-Responders"}
+        </Button>
+        
+        <Button
+          variant="default"
+          onClick={handleCopyEmails}
+          disabled={selectedGuests.length === 0}
+        >
+          <Copy className="h-4 w-4 mr-2" />
+          Copy Selected Emails
+        </Button>
+      </div>
+
       <Card className="overflow-hidden">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]">
+                  <Checkbox
+                    checked={selectedGuests.length === filteredGuests?.length}
+                    onCheckedChange={handleSelectAll}
+                  />
+                </TableHead>
                 <TableHead>Guest Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Status</TableHead>
@@ -98,8 +189,14 @@ const Admin = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {guestData?.map((guest) => (
+              {filteredGuests?.map((guest) => (
                 <TableRow key={guest.id}>
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedGuests.includes(guest.id)}
+                      onCheckedChange={() => handleSelectGuest(guest.id)}
+                    />
+                  </TableCell>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-gray-500" />
