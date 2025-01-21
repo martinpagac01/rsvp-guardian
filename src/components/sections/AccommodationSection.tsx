@@ -82,7 +82,7 @@ const AccommodationSection = () => {
                     </a>
                     {accommodation.name === "Hotel Grand" && (
                       <p className="text-[#4A5568] text-sm mt-4">
-                        Celý hotel je rezervovaný pre našich svadobných hostí a máme 10% zľavu z cenníkovej ceny ubytovania. Pre rezerváciu kontaktujte recepciu hotela.
+                        Celý hotel je rezervovaný pre našich svadobných hostí a máme 10% zľavu z cenníkovej ceny ubytovania. Pre rezerváciu je nutné kontaktovať recepciu hotela telefonicky alebo emailom. Nie je možné rezervovať online!
                       </p>
                     )}
                     {accommodation.name === "Ubytovanie u Horských" && (
