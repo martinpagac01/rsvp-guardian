@@ -1,1 +1,4 @@
-export type AccommodationStatus = 'not_provided' | 'provided';
+export enum AccommodationStatus {
+  NotProvided = 'not_provided',
+  Provided = 'provided'
+}

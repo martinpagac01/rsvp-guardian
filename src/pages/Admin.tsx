@@ -15,11 +15,13 @@ import {
   Home, 
   Users,
   Copy,
-  Filter
+  Filter,
+  ArrowUp,
+  ArrowDown
 } from "lucide-react";
 import GuestAnalytics from "@/components/admin/GuestAnalytics";
 import { toast } from "@/components/ui/use-toast";
-import type { AccommodationStatus } from "@/integrations/supabase/types/enums";
+import { AccommodationStatus } from "@/integrations/supabase/types/enums";
 
 interface GuestResponse {
   id: string;
@@ -41,7 +43,25 @@ interface GuestResponse {
 
 const Admin = () => {
   const [selectedGuests, setSelectedGuests] = useState<string[]>([]);
-  const [showOnlyNonResponders, setShowOnlyNonResponders] = useState(false);
+  const [filters, setFilters] = useState({
+    status: {
+      confirmed: true,
+      declined: true,
+      noResponse: true
+    },
+    accommodation: {
+      provided: true,
+      notProvided: true
+    }
+  });
+
+  const [sortConfig, setSortConfig] = useState<{
+    key: 'responseDate' | null;
+    direction: 'ascending' | 'descending';
+  }>({
+    key: null,
+    direction: 'ascending'
+  });
 
   const { data: guestData, isLoading } = useQuery({
     queryKey: ['admin-guests'],
@@ -76,15 +96,43 @@ const Admin = () => {
     responded: guestData?.filter(g => g.rsvp_responses).length || 0,
     confirmed: guestData?.filter(g => g.rsvp_responses && g.rsvp_responses.phone !== 'declined').length || 0,
     declined: guestData?.filter(g => g.rsvp_responses?.phone === 'declined').length || 0,
-    needAccommodation: guestData?.filter(g => g.accommodation_status === 'needed').length || 0,
+    needAccommodation: 0, // Removed accommodation needed status as per requirements
     totalAdditionalGuests: guestData?.reduce((total, guest) => {
       return total + (guest.rsvp_responses?.additional_guests?.length || 0);
     }, 0) || 0,
   };
 
-  const filteredGuests = guestData?.filter(guest => 
-    !showOnlyNonResponders || !guest.rsvp_responses
-  );
+  const filteredGuests = guestData?.filter(guest => {
+    const statusMatch = 
+      (filters.status.confirmed && guest.rsvp_responses && guest.rsvp_responses.phone !== 'declined') ||
+      (filters.status.declined && guest.rsvp_responses?.phone === 'declined') ||
+      (filters.status.noResponse && !guest.rsvp_responses);
+
+    const accommodationMatch = 
+      (filters.accommodation.provided && guest.accommodation_status === AccommodationStatus.Provided) ||
+      (filters.accommodation.notProvided && guest.accommodation_status !== AccommodationStatus.Provided);
+
+    return statusMatch && accommodationMatch;
+  });
+
+  const sortedGuests = filteredGuests?.sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    
+    if (sortConfig.key === 'responseDate') {
+      const dateA = a.rsvp_responses?.created_at || '';
+      const dateB = b.rsvp_responses?.created_at || '';
+      
+      if (dateA < dateB) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (dateA > dateB) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    }
+    
+    return 0;
+  });
 
   const handleSelectAll = () => {
     if (selectedGuests.length === filteredGuests?.length) {
@@ -132,6 +180,82 @@ const Admin = () => {
     }
   };
 
+  const generateVCard = (guest: GuestResponse) => {
+    if (!guest.rsvp_responses || guest.rsvp_responses.phone === 'declined') return null;
+    
+    const vCard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      `FN:${guest.full_name}`,
+      `TEL;TYPE=CELL:${guest.rsvp_responses.phone}`,
+      `EMAIL;TYPE=WORK,INTERNET:${guest.email}`,
+      `NOTE:MPVHG wedding guest`,
+      'END:VCARD'
+    ].join('\n');
+
+    return vCard;
+  };
+
+  const downloadVCard = (content: string, filename: string) => {
+    const blob = new Blob([content], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadContacts = () => {
+    if (!selectedGuests.length) {
+      toast({
+        title: "No guests selected",
+        description: "Please select at least one guest to download their contact information.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const selectedGuestsData = guestData
+      ?.filter(guest => 
+        selectedGuests.includes(guest.id) &&
+        guest.rsvp_responses &&
+        guest.rsvp_responses.phone !== 'declined'
+      ) || [];
+
+    if (!selectedGuestsData.length) {
+      toast({
+        title: "No valid contacts",
+        description: "Selected guests either declined or haven't provided contact information.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const vCards = selectedGuestsData
+        .map(guest => generateVCard(guest))
+        .filter(Boolean)
+        .join('\n');
+
+      downloadVCard(vCards, 'MPVHG_wedding_contacts.vcf');
+      
+      toast({
+        title: "Contacts downloaded successfully",
+        description: `${selectedGuestsData.length} contacts saved as vCard file.`,
+      });
+    } catch (err) {
+      toast({
+        title: "Failed to download contacts",
+        description: "There was an error creating the contact file. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="container mx-auto py-8 px-4">
@@ -148,23 +272,98 @@ const Admin = () => {
       
       <GuestAnalytics {...analytics} />
 
-      <div className="flex gap-4 mb-6">
-        <Button
-          variant="outline"
-          onClick={() => setShowOnlyNonResponders(!showOnlyNonResponders)}
-        >
-          <Filter className="h-4 w-4 mr-2" />
-          {showOnlyNonResponders ? "Show All" : "Show Non-Responders"}
-        </Button>
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="flex flex-wrap gap-4">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="confirmed-filter"
+              checked={filters.status.confirmed}
+              onCheckedChange={(checked) => setFilters(prev => ({
+                ...prev,
+                status: { ...prev.status, confirmed: !!checked }
+              }))}
+            />
+            <label htmlFor="confirmed-filter" className="text-sm font-medium leading-none">
+              Confirmed
+            </label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="declined-filter"
+              checked={filters.status.declined}
+              onCheckedChange={(checked) => setFilters(prev => ({
+                ...prev,
+                status: { ...prev.status, declined: !!checked }
+              }))}
+            />
+            <label htmlFor="declined-filter" className="text-sm font-medium leading-none">
+              Declined
+            </label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="no-response-filter"
+              checked={filters.status.noResponse}
+              onCheckedChange={(checked) => setFilters(prev => ({
+                ...prev,
+                status: { ...prev.status, noResponse: !!checked }
+              }))}
+            />
+            <label htmlFor="no-response-filter" className="text-sm font-medium leading-none">
+              No Response
+            </label>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="accommodation-provided"
+              checked={filters.accommodation.provided}
+              onCheckedChange={(checked) => setFilters(prev => ({
+                ...prev,
+                accommodation: { ...prev.accommodation, provided: !!checked }
+              }))}
+            />
+            <label htmlFor="accommodation-provided" className="text-sm font-medium leading-none">
+              Accommodation Provided
+            </label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="accommodation-not-provided"
+              checked={filters.accommodation.notProvided}
+              onCheckedChange={(checked) => setFilters(prev => ({
+                ...prev,
+                accommodation: { ...prev.accommodation, notProvided: !!checked }
+              }))}
+            />
+            <label htmlFor="accommodation-not-provided" className="text-sm font-medium leading-none">
+              Accommodation Not Provided
+            </label>
+          </div>
+        </div>
         
-        <Button
-          variant="default"
-          onClick={handleCopyEmails}
-          disabled={selectedGuests.length === 0}
-        >
-          <Copy className="h-4 w-4 mr-2" />
-          Copy Selected Emails
-        </Button>
+        <div className="flex flex-wrap gap-4">
+          <Button
+            variant="default"
+            onClick={handleCopyEmails}
+            disabled={selectedGuests.length === 0}
+            className="flex-1 min-w-[200px]"
+          >
+            <Copy className="h-4 w-4 mr-2" />
+            Copy Selected Emails
+          </Button>
+
+          <Button
+            variant="default"
+            onClick={handleDownloadContacts}
+            disabled={selectedGuests.length === 0}
+            className="flex-1 min-w-[200px]"
+          >
+            <Phone className="h-4 w-4 mr-2" />
+            Download Selected Contacts
+          </Button>
+        </div>
       </div>
 
       <Card className="overflow-hidden">
@@ -185,11 +384,35 @@ const Admin = () => {
                 <TableHead>Phone</TableHead>
                 <TableHead>Dietary Requirements</TableHead>
                 <TableHead>Additional Guests</TableHead>
-                <TableHead>Response Date</TableHead>
+                <TableHead>
+                  <div 
+                    className="flex items-center gap-1 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded-md group"
+                    onClick={() => {
+                      setSortConfig(prev => ({
+                        key: 'responseDate',
+                        direction: prev.direction === 'ascending' ? 'descending' : 'ascending'
+                      }));
+                    }}
+                    title="Click to sort by response date"
+                  >
+                    <span>Response Date</span>
+                    <div className="opacity-50 group-hover:opacity-100 transition-opacity">
+                      {sortConfig.key === 'responseDate' ? (
+                        sortConfig.direction === 'ascending' ? (
+                          <ArrowUp className="h-4 w-4" />
+                        ) : (
+                          <ArrowDown className="h-4 w-4" />
+                        )
+                      ) : (
+                        <ArrowUp className="h-4 w-4 opacity-50" />
+                      )}
+                    </div>
+                  </div>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredGuests?.map((guest) => (
+              {sortedGuests?.map((guest) => (
                 <TableRow key={guest.id}>
                   <TableCell>
                     <Checkbox
@@ -224,7 +447,7 @@ const Admin = () => {
                   <TableCell>
                     <div className="flex items-center gap-1">
                       <Home className="h-4 w-4" />
-                      {guest.accommodation_status === 'provided' ? (
+                      {guest.accommodation_status === AccommodationStatus.Provided ? (
                         <span className="text-emerald-500">Provided</span>
                       ) : (
                         <span className="text-amber-500">Not Provided</span>
