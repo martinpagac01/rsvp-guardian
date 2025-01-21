@@ -81,9 +81,16 @@ const AccommodationSection = () => {
                       <ExternalLink className="h-4 w-4 ml-1" />
                     </a>
                     {accommodation.name === "Hotel Grand" && (
-                      <p className="text-[#4A5568] text-sm mt-4">
-                        Celý hotel je rezervovaný pre našich svadobných hostí a máme 10% zľavu z cenníkovej ceny ubytovania. Pre rezerváciu je nutné kontaktovať recepciu hotela telefonicky alebo emailom. Nie je možné rezervovať online!
-                      </p>
+                      <>
+                        <div className="mt-4 p-4 bg-[#F7F9FC] rounded-lg">
+                          <p className="text-[#4A5568] font-medium mb-2">
+                            Dostupné izby: <span className="text-[#9b87f5]">7</span>
+                          </p>
+                          <p className="text-[#4A5568] text-sm">
+                            Zostávajúce izby sa rýchlo vypredávajú. Odporúčame rezervovať čo najskôr. Celý hotel je rezervovaný pre našich svadobných hostí a máme 10% zľavu z cenníkovej ceny ubytovania. Pre rezerváciu kontaktujte recepciu hotela. Nie je možné rezervovať online.
+                          </p>
+                        </div>
+                      </>
                     )}
                     {accommodation.name === "Ubytovanie u Horských" && (
                       <p className="text-[#4A5568] text-sm mt-4">
