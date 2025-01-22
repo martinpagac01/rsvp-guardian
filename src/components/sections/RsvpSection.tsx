@@ -14,10 +14,10 @@ const RsvpSection = () => {
           <div className="text-center mb-12">
             <Check className="mx-auto h-10 w-10 text-[#9b87f5] mb-4" />
             <h2 className="text-3xl md:text-4xl font-serif mb-4 text-[#1A1F2C]">
-              Potvrďte svoju účasť
+              Odpovedať na pozvánku
             </h2>
             <p className="text-[#4A5568] max-w-2xl mx-auto">
-              Prosíme o potvrdenie účasti do 31. januára 2025
+              Prosíme o odpoveď do 31. januára 2025
             </p>
           </div>
 

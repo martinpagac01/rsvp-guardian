@@ -50,7 +50,7 @@ const HeroSection = () => {
               href="#rsvp" 
               className="inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-[#9b87f5] text-white rounded-lg text-base sm:text-lg font-medium hover:bg-[#8B5CF6] transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
             >
-              Potvrdiť účasť
+              Odpovedať na pozvánku
             </a>
             <p className="font-sans text-xs sm:text-sm text-[#4A5568] mt-4">
               Prosíme, potvrďte účasť na svadobnej hostine do 31. januára 2025.
