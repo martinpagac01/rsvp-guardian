@@ -1,0 +1,57 @@
+import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
+import { Link } from "react-router-dom"
+import { Heart } from "lucide-react"
+import { TaxiButton } from "@/components/TaxiButton"
+
+const menuItems = [
+  {
+    title: "Program",
+    href: "/schedule",
+    icon: "📅",
+  },
+  {
+    title: "Menu",
+    href: "/menu",
+    icon: "🍽️",
+  },
+  {
+    title: "Hra",
+    href: "/game",
+    icon: "🎮",
+  },
+]
+
+export default function AppPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#F5F3FF]/30 p-4 pb-20">
+      <div className="container mx-auto max-w-md pt-8">
+        <div className="text-center mb-8">
+          <Heart className="mx-auto text-[#9b87f5] h-8 w-8 animate-pulse mb-4" />
+          <h1 className="font-serif text-3xl text-[#1A1F2C] mb-2">Veronika & Martin</h1>
+          <p className="font-sans text-[#4A5568]">Vitajte v našej svadobnej aplikácii</p>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {menuItems.map((item) => (
+            <Link 
+              key={item.title} 
+              to={item.href}
+              className="block no-underline"
+            >
+              <Card className={cn(
+                "h-40 transition-all hover:scale-105 border-[#9b87f5]/20",
+                "flex flex-col items-center justify-center text-center bg-white/80"
+              )}>
+                <CardContent className="pt-6">
+                  <div className="text-4xl mb-2">{item.icon}</div>
+                  <h2 className="font-serif text-xl text-[#1A1F2C]">{item.title}</h2>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </div>
+      <TaxiButton />
+    </div>
+  )
+}

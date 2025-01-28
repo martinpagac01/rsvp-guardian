@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
+import AppPage from "./pages/App";
+import SchedulePage from "./pages/Schedule";
+import MenuPage from "./pages/Menu";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,6 +27,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/app" element={<AppPage />} />
+          <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/menu" element={<MenuPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
