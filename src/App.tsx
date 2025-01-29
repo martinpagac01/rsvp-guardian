@@ -8,6 +8,7 @@ import Admin from "./pages/Admin";
 import AppPage from "./pages/App";
 import SchedulePage from "./pages/Schedule";
 import MenuPage from "./pages/Menu";
+import AdvicePage from "./pages/Advice";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/app" element={<AppPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/menu" element={<MenuPage />} />
+          <Route path="/advice" element={<AdvicePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

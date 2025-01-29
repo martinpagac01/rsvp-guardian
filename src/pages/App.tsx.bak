@@ -20,11 +20,6 @@ const menuItems = [
     href: "/game",
     icon: "🎮",
   },
-  {
-    title: "Rady",
-    href: "/advice",
-    icon: "💝",
-  },
 ]
 
 export default function AppPage() {
