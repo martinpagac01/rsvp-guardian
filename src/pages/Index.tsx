@@ -43,8 +43,11 @@ const Index = () => {
               <a href="#faq" className="text-[#4A5568] hover:text-[#9b87f5] transition-colors">FAQ</a>
               <a href="#contact" className="text-[#4A5568] hover:text-[#9b87f5] transition-colors">Kontakt</a>
             </div>
-            <button className="px-4 py-2 bg-[#9b87f5] text-white rounded-lg text-sm font-medium hover:bg-[#8B5CF6] transition-colors">
-              <a href="#rsvp" className="block text-white no-underline">Odpovedať na pozvánku</a>
+            <button 
+              disabled
+              className="px-4 py-2 bg-gray-400 text-white rounded-lg text-sm font-medium cursor-not-allowed"
+            >
+              RSVP uzavreté
             </button>
           </div>
         </div>

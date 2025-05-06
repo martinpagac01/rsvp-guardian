@@ -46,14 +46,14 @@ const HeroSection = () => {
           </div>
 
           <div className="space-y-4 mt-10 md:mt-12">
-            <a 
-              href="#rsvp" 
-              className="inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-[#9b87f5] text-white rounded-lg text-base sm:text-lg font-medium hover:bg-[#8B5CF6] transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+            <button
+              disabled
+              className="inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-gray-400 text-white rounded-lg text-base sm:text-lg font-medium cursor-not-allowed shadow-lg"
             >
-              Odpovedať na pozvánku
-            </a>
+              RSVP uzavreté
+            </button>
             <p className="font-sans text-xs sm:text-sm text-[#4A5568] mt-4">
-              Prosíme, potvrďte účasť na svadobnej hostine do 31. januára 2025.
+              Ďakujeme za Váš záujem, možnosť potvrdenia účasti bola ukončená.
             </p>
           </div>
         </div>
