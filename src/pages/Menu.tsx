@@ -1,9 +1,9 @@
-import { Heart } from "lucide-react"
 import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { ArrowLeft } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { TaxiButton } from "@/components/TaxiButton"
+import { cn } from "@/lib/utils"
 
 const menu = {
   predjedlo: [
@@ -32,73 +32,42 @@ const menu = {
 export default function MenuPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F5F3FF]/30 p-4 pb-20">
-      <div className="container mx-auto max-w-md pt-8">
-        <div className="text-center mb-8">
-          <Link to="/app">
-            <Button variant="ghost" className="mb-4">
-              ← Späť
-            </Button>
-          </Link>
-          <Heart className="mx-auto text-[#9b87f5] h-8 w-8 animate-pulse mb-4" />
-          <h1 className="font-serif text-3xl text-[#1A1F2C] mb-2">Svadobné menu</h1>
-          <p className="font-sans text-[#4A5568]">Hotel Fontána</p>
+      <div className="container mx-auto max-w-md pt-6 sm:pt-8">
+
+        {/* Back Button */}
+        <Link to="/app" className="absolute top-3 left-3 text-[#4A5568] hover:text-[#9b87f5] transition-colors flex items-center">
+          <ArrowLeft className="h-5 w-5 mr-1" />
+          Späť
+        </Link>
+
+        <div className="text-center mb-8 mt-6">
+          <h1 className="font-serif text-4xl font-medium text-[#1A1F2C] mb-2">Svadobné menu</h1>
+          <p className="font-sans text-lg text-[#4A5568]">Hotel Fontána</p>
         </div>
 
-        <Card className="border-[#9b87f5]/20 bg-white/80">
-          <CardContent className="pt-6">
-            <div className="space-y-6">
-              <div>
-                <h2 className="font-serif text-xl text-[#1A1F2C] mb-2">Predjedlo</h2>
-                <ul className="list-disc list-inside space-y-1">
-                  {menu.predjedlo.map((item) => (
-                    <li key={item} className="font-sans text-[#4A5568]">{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <Separator className="bg-[#9b87f5]/20" />
-
-              <div>
-                <h2 className="font-serif text-xl text-[#1A1F2C] mb-2">Polievka</h2>
-                <ul className="list-disc list-inside space-y-1">
-                  {menu.polievka.map((item) => (
-                    <li key={item} className="font-sans text-[#4A5568]">{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <Separator className="bg-[#9b87f5]/20" />
-
-              <div>
-                <h2 className="font-serif text-xl text-[#1A1F2C] mb-2">Hlavné jedlo</h2>
-                <ul className="list-disc list-inside space-y-1">
-                  {menu.hlavneJedlo.map((item) => (
-                    <li key={item} className="font-sans text-[#4A5568]">{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <Separator className="bg-[#9b87f5]/20" />
-
-              <div>
-                <h2 className="font-serif text-xl text-[#1A1F2C] mb-2">Dezert</h2>
-                <ul className="list-disc list-inside space-y-1">
-                  {menu.dezert.map((item) => (
-                    <li key={item} className="font-sans text-[#4A5568]">{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <Separator className="bg-[#9b87f5]/20" />
-
-              <div>
-                <h2 className="font-serif text-xl text-[#1A1F2C] mb-2">Večerné občerstvenie</h2>
-                <ul className="list-disc list-inside space-y-1">
-                  {menu.vecerneObcerstvenie.map((item) => (
-                    <li key={item} className="font-sans text-[#4A5568]">{item}</li>
-                  ))}
-                </ul>
-              </div>
+        <Card className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl border-[#9b87f5]/30">
+          <CardContent className="py-6 px-5">
+            <div className="space-y-5">
+              {Object.entries(menu).map(([category, items]) => (
+                <div key={category}>
+                  <h2 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-3">{
+                    category === "predjedlo" ? "Predjedlo" :
+                    category === "polievka" ? "Polievka" :
+                    category === "hlavneJedlo" ? "Hlavné jedlo" :
+                    category === "dezert" ? "Dezert" :
+                    category === "vecerneObcerstvenie" ? "Večerné občerstvenie" :
+                    category
+                  }</h2>
+                  <ul className="list-none pl-0 space-y-2">
+                    {items.map((item) => (
+                      <li key={item} className="font-sans text-lg text-[#4A5568]">{item}</li>
+                    ))}
+                  </ul>
+                  {category !== Object.keys(menu).pop() && (
+                    <Separator className="bg-[#9b87f5]/20 mt-4" />
+                  )}
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
