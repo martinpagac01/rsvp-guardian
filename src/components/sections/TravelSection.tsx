@@ -125,6 +125,43 @@ const TravelSection = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Private Taxi Service Card */}
+          <div className="mt-12">
+            <Card className="bg-gradient-to-br from-[#9b87f5]/10 to-white border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="text-center mb-8">
+                  <Car className="mx-auto h-8 w-8 text-[#9b87f5] mb-4" />
+                  <h3 className="font-serif text-2xl font-medium text-[#1A1F2C] mb-4">
+                    Súkromné TAXI pre hostí
+                  </h3>
+                  <p className="text-[#4A5568] max-w-2xl mx-auto">
+                    Pre pohodlný presun po oslave sme zabezpečili súkromné taxi.
+                  </p>
+                </div>
+                <div className="max-w-2xl mx-auto">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                      <div className="font-medium text-[#9b87f5] min-w-[4.5rem] text-center">Trasa</div>
+                      <div className="text-[#4A5568] flex-1">Samota Pierre → Hotel GRAND, Čáslav</div>
+                    </div>
+                    <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                      <div className="font-medium text-[#9b87f5] min-w-[4.5rem] text-center">Cena</div>
+                      <div className="text-[#4A5568] flex-1">300,- Kč (fixná, platba v hotovosti)</div>
+                    </div>
+                    <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                      <div className="font-medium text-[#9b87f5] min-w-[4.5rem] text-center">Kontakt</div>
+                      <div className="text-[#4A5568] flex-1">
+                        <a href="tel:+420734759593" className="font-bold text-[#9b87f5] hover:text-[#8B5CF6] transition-colors">
+                          +420 734 759 593
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </section>
