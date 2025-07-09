@@ -1,5 +1,6 @@
-import { Camera, Church, Clapperboard, GlassWater, HeartHandshake, Music, PartyPopper, Gem, Cake, Users, Gamepad2, Bus, MapPin, Car, CalendarDays } from 'lucide-react';
+import { Camera, GlassWater, Music, PartyPopper, Gem, Cake, Gamepad2, Bus, Car, Heart, Utensils, Puzzle, Sparkles, Flower2, MapPin, CalendarDays } from 'lucide-react';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 // Type Definitions
 interface TimelineEvent {
@@ -37,64 +38,15 @@ interface CommonEventData {
 type TimelineItemData = CommonEventData | TravelSectionData;
 
 const timeline: TimelineItemData[] = [
-  { type: 'common', event: { time: "9:30 - 12:15", title: "Prípravy & Fotenie", icon: Clapperboard, location: "Samota Pierre" } },
-  { type: 'common', event: { time: "12:15 - 13:00", title: "Welcome drink", icon: GlassWater, location: "Samota Pierre" } },
-  {
-    type: 'travel',
-    title: 'Cesta na obrad',
-    groups: [
-      {
-        from: 'Z Hotelu Grand, Čáslav',
-        transportIcon: Bus,
-        events: [
-          { time: "13:00", title: "Odchod autobusu", icon: Bus },
-        ]
-      },
-      {
-        from: 'Zo Samoty Pierre',
-        transportIcon: Car,
-        events: [
-          { time: "13:15", title: "Odchod autami", icon: Car },
-        ]
-      }
-    ],
-    commonDestination: { time: "13:30 - 13:45", title: "Príchod ku kostolu", icon: Church, location: "Evanjelický kostol, Přelouč" }
-  },
-  { type: 'common', event: { time: "14:00", title: "Svadobný obrad", icon: Church, location: "Evanjelický kostol, Přelouč, Českobratrská 53501" } },
-  { type: 'common', event: { time: "14:45 - 15:15", title: "Gratulácie", icon: HeartHandshake, location: "Evanjelický kostol, Přelouč" } },
-  {
-    type: 'travel',
-    title: 'Cesta na hostinu',
-    groups: [
-      {
-        from: 'Od kostola (autobusom)',
-        transportIcon: Bus,
-        events: [
-          { time: "15:30", title: "Odchod od kostola", icon: Bus },
-        ]
-      },
-      {
-        from: 'Od kostola (autom)',
-        transportIcon: Car,
-        events: [
-          { time: "15:30", title: "Odchod od kostola", icon: Car },
-        ]
-      }
-    ],
-    commonDestination: { time: "16:00", title: "Príchod na hostinu", icon: PartyPopper, location: "Samota Pierre, Podhořany u Ronova 151", description: "Hádzanie taniera a prípitky" }
-  },
-  { type: 'common', event: { time: "16:15", title: "Svadobný obed", icon: GlassWater } },
-  { type: 'common', event: { time: "18:00", title: "Prvý tanec & Saxofonista", icon: Gem } },
-  { type: 'common', event: { time: "18:10", title: "Tanec s rodičmi", icon: Users } },
-  { type: 'common', event: { time: "18:30", title: "Krájanie torty", icon: Cake } },
-  { type: 'common', event: { time: "19:00", title: "Hádzanie kytice", icon: Music } },
-  { type: 'common', event: { time: "19:30", title: "Zábava", icon: Music } },
-  { type: 'common', event: { time: "20:00", title: "Svadobná hra: Stoličky", icon: Gamepad2, description: "Moderuje svedkyňa" } },
-  { type: 'common', event: { time: "20:30", title: "Zábava", icon: Music } },
-  { type: 'common', event: { time: "21:00", title: "Svadobná hra: Whitney", icon: Gamepad2 } },
-  { type: 'common', event: { time: "21:30", title: "Zábava", icon: Music } },
-  { type: 'common', event: { time: "22:00", title: "Prskavkový tanec", icon: PartyPopper } },
-  { type: 'common', event: { time: "22:30 - 6:00", title: "Voľná zábava & Kapela", icon: Music } },
+  { type: 'common', event: { time: "15:30", title: "Príchod na Samotu Pierre", icon: PartyPopper } },
+  { type: 'common', event: { time: "16:00", title: "Slávnostný obed", icon: Utensils } },
+  { type: 'common', event: { time: "17:00", title: "Fotenie", icon: Camera } },
+  { type: 'common', event: { time: "18:00", title: "Prvý tanec", icon: Heart } },
+  { type: 'common', event: { time: "18:30", title: "Torta", icon: Cake } },
+  { type: 'common', event: { time: "20:00", title: "Svadobná hra: Stoličky", icon: Puzzle, description: "Moderuje: Svedkyňa Zuzka" } },
+  { type: 'common', event: { time: "21:00", title: "Svadobná hra: Whitney", icon: Puzzle, description: "Moderuje: Svedok Michal" } },
+  { type: 'common', event: { time: "22:00", title: "Prskavkový tanec", icon: Sparkles } },
+  { type: 'common', event: { time: "23:00", title: "Hádzanie kytice", icon: Flower2 } },
 ];
 
 const TimelineItem: React.FC<{ item: TimelineEvent; isLastInBranch?: boolean }> = ({ item, isLastInBranch = false }) => (
@@ -156,6 +108,21 @@ const TravelTimeline: React.FC<{ travelData: TravelSectionData }> = ({ travelDat
   </div>
 );
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function SchedulePage() {
   return (
     <div className="container mx-auto max-w-md p-4">
@@ -164,14 +131,31 @@ export default function SchedulePage() {
         <h1 className="font-serif text-4xl font-medium text-[#1A1F2C]">Program dňa</h1>
       </div>
       <div className="bg-white/80 backdrop-blur-sm shadow-lg rounded-2xl p-6 border border-[#9b87f5]/30">
-        {timeline.map((item, index) => {
-          if (item.type === 'common') {
-            return <TimelineItem key={index} item={item.event} />;
-          } else if (item.type === 'travel') {
-            return <TravelTimeline key={index} travelData={item} />;
-          }
-          return null;
-        })}
+        <motion.div 
+          className="relative"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {timeline.map((item, index) => {
+            const key = `timeline-item-${index}`;
+            if (item.type === 'common') {
+              return (
+                <motion.div key={key} variants={itemVariants}>
+                  <TimelineItem item={item.event} />
+                </motion.div>
+              );
+            }
+            if (item.type === 'travel') {
+              return (
+                <motion.div key={key} variants={itemVariants}>
+                  <TravelTimeline travelData={item} />
+                </motion.div>
+              );
+            }
+            return null;
+          })}
+        </motion.div>
       </div>
     </div>
   );

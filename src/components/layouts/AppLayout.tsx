@@ -1,20 +1,33 @@
-import BottomNav from "../BottomNav";
+import BottomNav from "@/components/BottomNav";
 import Header from "@/components/Header";
-import { Outlet } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { Outlet, useLocation } from "react-router-dom";
 
 const AppLayout = () => {
-  return (
-    <div className="relative min-h-screen bg-gray-50">
-      {/* Background Layers */}
-      <div className="absolute inset-0 bg-[url('/bg_pattern.jpg')] bg-fixed bg-cover bg-center opacity-85" />
-      <div className="absolute inset-0 bg-white/50" />
+  const location = useLocation();
 
-      <Header />
-      {/* Padded, scrollable content area */}
-      <main className="relative z-10 pt-16 pb-20 flex flex-col min-h-screen">
-        <Outlet />
-      </main>
-      <BottomNav />
+  return (
+    <div className="relative min-h-screen font-sans">
+      {/* Background Image & Gradient */}
+      <div 
+        className="absolute inset-0 bg-[url('/bg_pattern.jpg')] bg-cover bg-center opacity-85 object-cover"
+      />
+      <div 
+        className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"
+      />
+      
+      {/* Foreground Content */}
+      <div className="relative flex flex-col h-screen">
+        <Header />
+        <main className="flex-1 overflow-y-auto pb-20 pt-16">
+          <AnimatePresence mode="wait">
+            <Outlet key={location.pathname} />
+          </AnimatePresence>
+        </main>
+        <div className="fixed bottom-0 left-0 right-0 z-20">
+          <BottomNav />
+        </div>
+      </div>
     </div>
   );
 };
