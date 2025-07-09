@@ -10,9 +10,9 @@ const AppLayout = () => {
       <div className="absolute inset-0 bg-white/50" />
 
       {/* Content Layers */}
-      <div className="relative z-10 flex flex-col flex-grow">
+      <div className="relative z-10 flex flex-col h-full">
         <Header />
-        <main className="flex-grow overflow-y-auto pb-20"> 
+        <main className="flex-grow overflow-y-auto">
           <Outlet />
         </main>
         <BottomNav />
