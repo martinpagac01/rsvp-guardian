@@ -27,7 +27,7 @@ export default function AppPage() {
   };
 
   return (
-      <div className="container mx-auto max-w-md p-4">
+      <div className="container mx-auto max-w-md p-4 flex flex-col justify-center flex-grow">
         <div className="text-center pt-12 sm:pt-16 mb-12">
           <Heart className="mx-auto text-[#9b87f5] h-12 w-12 animate-pulse mb-4" />
           <p className="font-sans text-xl text-[#4A5568]">

@@ -48,7 +48,7 @@ const MenuContent: React.FC<MenuCardProps> = ({ menu, title }) => (
 
 export default function MenuPage() {
   return (
-    <div className="container mx-auto max-w-md p-4 pb-24">
+    <div className="container mx-auto max-w-md p-4 flex flex-col flex-grow">
       <div className="text-center mb-8">
         <Utensils className="mx-auto text-[#9b87f5] h-10 w-10 mb-4" />
         <h1 className="font-serif text-4xl font-medium text-[#1A1F2C]">Svadobné menu</h1>

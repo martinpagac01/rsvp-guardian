@@ -158,7 +158,7 @@ const TravelTimeline: React.FC<{ travelData: TravelSectionData }> = ({ travelDat
 
 export default function SchedulePage() {
   return (
-    <div className="container mx-auto max-w-md p-4 pb-24">
+    <div className="container mx-auto max-w-md p-4">
       <div className="text-center mb-8">
         <CalendarDays className="mx-auto text-[#9b87f5] h-10 w-10 mb-4" />
         <h1 className="font-serif text-4xl font-medium text-[#1A1F2C]">Program dňa</h1>
