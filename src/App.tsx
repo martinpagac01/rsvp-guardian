@@ -9,6 +9,8 @@ import AppPage from "./pages/App";
 import SchedulePage from "./pages/Schedule";
 import MenuPage from "./pages/Menu";
 import AdvicePage from "./pages/Advice";
+import QuizPage from "./pages/Quiz";
+import AppLayout from "@/components/layouts/AppLayout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,10 +30,15 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/app" element={<AppPage />} />
-          <Route path="/schedule" element={<SchedulePage />} />
-          <Route path="/menu" element={<MenuPage />} />
           <Route path="/advice" element={<AdvicePage />} />
+          
+          <Route path="/app" element={<AppLayout />}>
+            <Route index element={<AppPage />} />
+            <Route path="schedule" element={<SchedulePage />} />
+            <Route path="menu" element={<MenuPage />} />
+            <Route path="quiz" element={<QuizPage />} />
+          </Route>
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
