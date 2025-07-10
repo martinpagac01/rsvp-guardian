@@ -28,8 +28,8 @@ export default function AppPage() {
   };
 
   return (
-      <div className="container mx-auto max-w-md p-4 flex flex-col justify-center flex-grow">
-        <div className="space-y-4">
+      <div className="container mx-auto max-w-md p-4 flex flex-col justify-center h-full">
+        <div className="space-y-3">
           <Dialog>
             <DialogTrigger asChild>
               <Button
@@ -40,7 +40,7 @@ export default function AppPage() {
                 <span>Zdieľať fotky</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-white sm:rounded-lg border-gray-200 shadow-xl">
+            <DialogContent onOpenAutoFocus={(e) => e.preventDefault()} className="bg-white sm:rounded-lg border-gray-200 shadow-xl">
               <DialogHeader className="pt-2">
                 <DialogTitle className="font-serif text-2xl text-center text-[#1A1F2C]">
                   Podeľte sa o momentky

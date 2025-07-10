@@ -59,7 +59,7 @@ export default function QuizPage() {
 
   if (!isStarted) {
     return (
-      <div className="container mx-auto max-w-md p-4 flex flex-col items-center justify-center min-h-[80vh]">
+      <div className="container mx-auto max-w-md p-4 flex flex-col items-center justify-center h-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -87,7 +87,7 @@ export default function QuizPage() {
 
   if (isFinished) {
     return (
-      <div className="container mx-auto max-w-md p-4 flex flex-col items-center justify-center min-h-[80vh]">
+      <div className="container mx-auto max-w-md p-4 flex flex-col items-center justify-center h-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -113,9 +113,9 @@ export default function QuizPage() {
 
   return (
     <div className="container mx-auto max-w-md p-4 pb-24">
-      <div className="text-center mb-8">
-        <Gamepad2 className="mx-auto text-[#9b87f5] h-10 w-10 mb-4" />
-        <h1 className="font-serif text-4xl font-medium text-[#1A1F2C]">Svadobný kvíz</h1>
+      <div className="text-center pt-8 pb-12">
+        <h1 className="font-serif text-4xl text-[#1A1F2C]">Svadobný kvíz</h1>
+        <p className="font-sans text-lg text-[#4A5568] mt-2">Otestujte svoje vedomosti!</p>
       </div>
 
       <AnimatePresence mode="wait">

@@ -125,7 +125,7 @@ const itemVariants = {
 
 export default function SchedulePage() {
   return (
-    <div className="container mx-auto max-w-md p-4">
+    <div className="container mx-auto max-w-md p-4 pb-8">
       <div className="text-center pt-8 pb-12">
         <h1 className="font-serif text-4xl text-[#1A1F2C]">Harmonogram</h1>
         <p className="font-sans text-lg text-[#4A5568] mt-2">Prehľad svadobného dňa</p>
