@@ -28,13 +28,13 @@ export default function AppPage() {
   };
 
   return (
-      <div className="container mx-auto max-w-md p-4 flex flex-col justify-center h-full">
-        <div className="space-y-3">
+      <div className="container mx-auto max-w-md p-4 flex flex-col justify-center h-full overflow-hidden">
+        <div className="space-y-2">
           <Dialog>
             <DialogTrigger asChild>
               <Button
                 size="lg"
-                className="w-full h-24 bg-[#9b87f5] text-white backdrop-blur-sm shadow-lg rounded-2xl text-2xl font-medium hover:bg-[#8B5CF6] hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
+                className="w-full h-20 bg-[#9b87f5] text-white backdrop-blur-sm shadow-lg rounded-2xl text-xl font-medium hover:bg-[#8B5CF6] hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
               >
                 
                 <span>Zdieľať fotky</span>
@@ -60,7 +60,7 @@ export default function AppPage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full h-24 bg-white/80 border-[#9b87f5]/30 backdrop-blur-sm shadow-lg rounded-2xl text-2xl font-medium text-[#1A1F2C] hover:bg-white hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
+                className="w-full h-20 bg-white/80 border-[#9b87f5]/30 backdrop-blur-sm shadow-lg rounded-2xl text-xl font-medium text-[#1A1F2C] hover:bg-white hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
               >
                 <span>Kontakt na koordinátorku</span>
               </Button>
@@ -92,7 +92,7 @@ export default function AppPage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full h-24 bg-white/80 border-[#9b87f5]/30 backdrop-blur-sm shadow-lg rounded-2xl text-2xl font-medium text-[#1A1F2C] hover:bg-white hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
+                className="w-full h-20 bg-white/80 border-[#9b87f5]/30 backdrop-blur-sm shadow-lg rounded-2xl text-xl font-medium text-[#1A1F2C] hover:bg-white hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
               >
                 <span>Objednať taxi</span>
               </Button>
