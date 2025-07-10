@@ -10,6 +10,7 @@ import SchedulePage from "./pages/Schedule";
 import MenuPage from "./pages/Menu";
 import AdvicePage from "./pages/Advice";
 import QuizPage from "./pages/Quiz";
+import GalleryPage from "./pages/Gallery";
 import AppLayout from "@/components/layouts/AppLayout";
 
 const queryClient = new QueryClient({
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="schedule" element={<SchedulePage />} />
             <Route path="menu" element={<MenuPage />} />
             <Route path="quiz" element={<QuizPage />} />
+            <Route path="gallery" element={<GalleryPage />} /> {/* Add the gallery route */}
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

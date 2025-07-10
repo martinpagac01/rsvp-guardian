@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { Home, CalendarDays, Utensils, Gamepad2 } from "lucide-react";
+import { Home, CalendarDays, Utensils, Gamepad2, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/app", label: "Domov", icon: Home },
   { href: "/app/schedule", label: "Program", icon: CalendarDays },
   { href: "/app/menu", label: "Menu", icon: Utensils },
+  { href: "/app/gallery", label: "Galéria", icon: Camera },
   { href: "/app/quiz", label: "Kvíz", icon: Gamepad2 },
 ];
 

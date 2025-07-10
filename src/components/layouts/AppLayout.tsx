@@ -2,6 +2,15 @@ import BottomNav from "@/components/BottomNav";
 import Header from "@/components/Header";
 import { AnimatePresence } from "framer-motion";
 import { Outlet, useLocation } from "react-router-dom";
+import { CalendarClock, Home, Menu, Puzzle, UtensilsCrossed, Camera } from "lucide-react";
+
+const navLinks = [
+  { to: "/app/schedule", label: "Harmonogram", icon: CalendarClock },
+  { to: "/app/menu", label: "Menu", icon: UtensilsCrossed },
+  { to: "/app/gallery", label: "Galéria", icon: Camera },
+  { to: "/app/quiz", label: "Kvíz", icon: Puzzle },
+  { to: "/app", label: "Domov", icon: Home },
+];
 
 const AppLayout = () => {
   const location = useLocation();

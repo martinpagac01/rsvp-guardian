@@ -1,4 +1,4 @@
-import { Heart, Users, Phone, Mail, Car } from "lucide-react";
+import { Heart, Phone, Car, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { PhotoUploader } from "@/components/PhotoUploader";
 
 const coordinator = {
   name: "Katka Mendelová",
@@ -36,6 +37,31 @@ export default function AppPage() {
         </div>
 
         <div className="space-y-6">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                size="lg"
+                className="w-full h-24 bg-[#9b87f5] text-white backdrop-blur-sm shadow-lg rounded-2xl text-2xl font-medium hover:bg-[#8B5CF6] hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
+              >
+                <Camera className="mr-4 h-8 w-8" />
+                <span>Zdieľať fotky</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-white sm:rounded-lg border-gray-200 shadow-xl">
+              <DialogHeader className="pt-2">
+                <DialogTitle className="font-serif text-2xl text-center text-[#1A1F2C]">
+                  Podeľte sa o momentky
+                </DialogTitle>
+                <DialogDescription className="font-sans text-center text-[#4A5568] pt-1">
+                  Nahrajte fotky a videá priamo z vášho telefónu.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4">
+                <PhotoUploader />
+              </div>
+            </DialogContent>
+          </Dialog>
+
           <Dialog>
             <DialogTrigger asChild>
               <Button
@@ -94,7 +120,7 @@ export default function AppPage() {
                 size="lg"
                 className="w-full bg-[#9b87f5] text-white hover:bg-[#8B5CF6] rounded-lg py-3"
               >
-                <Phone className="mr-2 h-5 w-5" />
+                <Car className="mr-2 h-5 w-5" />
                 {taxi.booking}
               </Button>
             </DialogContent>
