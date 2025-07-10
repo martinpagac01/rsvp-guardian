@@ -26,7 +26,7 @@ const AppLayout = () => {
       />
       
       {/* Foreground Content */}
-      <div className="relative flex flex-col h-screen">
+      <div className="relative flex flex-col h-dvh">
         <Header />
         <main className="flex-1 overflow-y-auto pb-20 pt-16">
           <AnimatePresence mode="wait">
