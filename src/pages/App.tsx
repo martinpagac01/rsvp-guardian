@@ -36,7 +36,7 @@ export default function AppPage() {
                 size="lg"
                 className="w-full h-24 bg-[#9b87f5] text-white backdrop-blur-sm shadow-lg rounded-2xl text-2xl font-medium hover:bg-[#8B5CF6] hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
               >
-                <Camera className="mr-4 h-8 w-8" />
+                
                 <span>Zdieľať fotky</span>
               </Button>
             </DialogTrigger>
@@ -46,7 +46,7 @@ export default function AppPage() {
                   Podeľte sa o momentky
                 </DialogTitle>
                 <DialogDescription className="font-sans text-center text-[#4A5568] pt-1">
-                  Nahrajte fotky a videá priamo z vášho telefónu.
+                  Nahrajte fotky (nie videá), ktoré budú automaticky zmenšené.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4">

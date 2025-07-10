@@ -147,41 +147,53 @@ export function PhotoUploader() {
   }
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <p className="text-sm text-muted-foreground mb-4 text-center">
-        Podeľte sa o momentky zo svadby! Táto funkcia je určená **iba na fotky** (nie videá). Fotky budú pred nahraním automaticky zmenšené.
-        <br/><br/>
+    <div className="flex flex-col space-y-6">
+      <p className="text-sm text-muted-foreground text-center">
         Možnosť nahrať fotky a videá v plnej kvalite bude dostupná po svadbe. Ďakujeme!
       </p>
-      <Input
-        id="uploader-name"
-        type="text"
-        placeholder="Vaše meno"
-        value={uploaderName}
-        onChange={(e) => setUploaderName(e.target.value)}
-        disabled={uploading}
-        className="text-center"
-      />
-      <Input
-        id="picture"
-        type="file"
-        multiple
-        accept="image/*"
-        ref={fileInputRef}
-        className="mb-4 cursor-pointer"
-        onChange={handleFileChange}
-      />
+      
+      <div className="space-y-4">
+        <Input
+          id="uploader-name"
+          type="text"
+          placeholder="Vaše meno alebo prezývka"
+          value={uploaderName}
+          onChange={(e) => setUploaderName(e.target.value)}
+          disabled={uploading}
+          className="h-12 text-base border-2 border-[#9b87f5]/40 focus:border-[#9b87f5] focus:ring-[#9b87f5]"
+        />
+
+        <Input
+          id="picture"
+          type="file"
+          multiple
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          className="hidden"
+        />
+        <Button 
+          onClick={() => fileInputRef.current?.click()}
+          disabled={uploading}
+          className="w-full h-12 text-base bg-[#9b87f5] text-white hover:bg-[#8B5CF6]"
+        >
+          <Camera className="mr-2 h-5 w-5" />
+          Vybrať fotky
+        </Button>
+      </div>
 
       {files.length > 0 && (
-        <div className="w-full text-center pt-4">
-          <p className="text-sm text-gray-600 mb-4">{files.length} súborov vybraných</p>
+        <div className="w-full text-center space-y-4 pt-2">
+          <p className="text-sm text-gray-600 flex items-center justify-center">
+            <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
+            <span>{files.length} {files.length === 1 ? 'súbor vybraný' : 'súbory vybrané'}</span>
+          </p>
           <Button
             onClick={handleUpload}
-            disabled={uploading}
+            disabled={uploading || !uploaderName.trim()}
             size="lg"
-            className="w-full bg-[#9b87f5] text-white hover:bg-[#8B5CF6]"
+            className="w-full h-14 text-lg bg-[#9b87f5] text-white hover:bg-[#8B5CF6]"
           >
-            <Camera className="mr-2 h-5 w-5" />
             {uploading ? `Nahrávam...` : "Nahrať fotky"}
           </Button>
         </div>
