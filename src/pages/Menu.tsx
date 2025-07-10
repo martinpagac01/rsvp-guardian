@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { Utensils, CalendarDays } from 'lucide-react';
+
 import { motion, Variants } from 'framer-motion';
 
 const containerVariants = {
@@ -69,9 +69,9 @@ const MenuContent: React.FC<MenuCardProps> = ({ menu }) => (
 export default function MenuPage() {
   return (
     <div className="container mx-auto max-w-md p-4">
-      <div className="text-center mb-8">
-        <Utensils className="mx-auto text-[#9b87f5] h-10 w-10 mb-4" />
-        <h1 className="font-serif text-4xl font-medium text-[#1A1F2C]">Svadobné menu</h1>
+      <div className="text-center pt-8 pb-12">
+        <h1 className="font-serif text-4xl text-[#1A1F2C]">Svadobné menu</h1>
+        <p className="font-sans text-lg text-[#4A5568] mt-2">Čo sa bude servírovať</p>
       </div>
       <motion.div 
         className="bg-white/80 backdrop-blur-sm shadow-lg rounded-2xl border border-[#9b87f5]/30"
@@ -105,7 +105,7 @@ export default function MenuPage() {
                 <Separator className="bg-rose-200/50" />
                 <div className="text-center">
                   <div className="font-serif text-base font-semibold tracking-widest uppercase mb-2">Hlavný chod</div>
-                  <div className="font-serif text-base text-gray-700 leading-tight">Kuracie prso<br/>Grilovaná sezónna zelenina</div>
+                  <div className="font-serif text-base text-gray-700 leading-tight">Kuracie prso<br/>s grilovanou sezónnou zeleninou<br/>a gratinovanými zemiakmi</div>
                 </div>
                 <Separator className="bg-rose-200/50" />
                 <div className="text-center">
@@ -126,7 +126,7 @@ export default function MenuPage() {
                 <Separator className="bg-rose-200/50" />
                 <div className="text-center">
                   <div className="font-serif text-base font-semibold tracking-widest uppercase mb-2">Hlavný chod</div>
-                  <div className="font-serif text-base text-gray-700 leading-tight">Grilovaný baklažán a cuketa<br/>Kuskus</div>
+                  <div className="font-serif text-base text-gray-700 leading-tight">Grilovaný baklažán a cuketa<br/>s kuskusom<br/>a gratinovanými zemiakmi</div>
                 </div>
                 <Separator className="bg-rose-200/50" />
                 <div className="text-center">

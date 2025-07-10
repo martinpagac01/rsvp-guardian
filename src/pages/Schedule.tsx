@@ -1,4 +1,4 @@
-import { Camera, GlassWater, Music, PartyPopper, Gem, Cake, Gamepad2, Bus, Car, Heart, Utensils, Puzzle, Sparkles, Flower2, MapPin, CalendarDays } from 'lucide-react';
+import { Camera, GlassWater, Music, PartyPopper, Gem, Cake, Gamepad2, Bus, Car, Heart, Utensils, Puzzle, Sparkles, Flower2, MapPin } from 'lucide-react';
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -126,9 +126,9 @@ const itemVariants = {
 export default function SchedulePage() {
   return (
     <div className="container mx-auto max-w-md p-4">
-      <div className="text-center mb-8">
-        <CalendarDays className="mx-auto text-[#9b87f5] h-10 w-10 mb-4" />
-        <h1 className="font-serif text-4xl font-medium text-[#1A1F2C]">Program dňa</h1>
+      <div className="text-center pt-8 pb-12">
+        <h1 className="font-serif text-4xl text-[#1A1F2C]">Harmonogram</h1>
+        <p className="font-sans text-lg text-[#4A5568] mt-2">Prehľad svadobného dňa</p>
       </div>
       <div className="bg-white/80 backdrop-blur-sm shadow-lg rounded-2xl p-6 border border-[#9b87f5]/30">
         <motion.div 
